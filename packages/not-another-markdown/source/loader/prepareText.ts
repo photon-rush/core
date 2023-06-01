@@ -1,4 +1,4 @@
-import {isWellFormed, normalizeTerminators, toWellFormed} from '@photon-rush/not-another-markdown/source/characters';
+import { isWellFormed, normalizeTerminators, toWellFormed } from '@photon-rush/not-another-markdown/source/characters';
 
 export default function prepareText(content: string, normalize: boolean): string {
     let sourceText = content;

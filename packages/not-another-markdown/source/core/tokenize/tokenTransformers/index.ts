@@ -1,4 +1,4 @@
-import {TokenTransformer} from '@photon-rush/not-another-markdown/source/core/tokenize/TokenTransformer';
+import { TokenTransformer } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenTransformer';
 import blockquote from '@photon-rush/not-another-markdown/source/core/tokenize/tokenTransformers/blockquote';
 import callout from '@photon-rush/not-another-markdown/source/core/tokenize/tokenTransformers/callout';
 import code from '@photon-rush/not-another-markdown/source/core/tokenize/tokenTransformers/code';

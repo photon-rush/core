@@ -1,4 +1,4 @@
-import {ITestData} from '@photon-rush/web.photon-rush/source/bench/getTestData';
+import { ITestData } from '@photon-rush/web.photon-rush/source/bench/getTestData';
 
 export function testForLoop(data: Array<number>) {
     let acc = 0;

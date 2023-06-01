@@ -3,7 +3,7 @@ import CharacterStream, {
 } from '@photon-rush/not-another-markdown/source/core/tokenize/CharacterStream';
 
 import TokenFactory from '@photon-rush/not-another-markdown/source/core/tokenize/TokenFactory';
-import TokenInstance, {Token} from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
+import TokenInstance, { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import Result from '@photon-rush/results/source/Result';
 
 export default {
@@ -21,13 +21,13 @@ export default {
         const params: Array<TokenInstance> = [];
 
         const nameToken = tokenFactory.createToken(Token.COMMAND_NAME);
-        const nameTag = input.consume([':', '}']);
+        const nameTag   = input.consume([':', '}']);
         nameToken.value = nameTag.value.trim();
 
         if (nameTag.terminal === ':') {
             while (input.notDone) {
                 const paramToken = tokenFactory.createToken(Token.COMMAND_PARAMETER);
-                const param = input.consume([',', '}']);
+                const param      = input.consume([',', '}']);
                 paramToken.value = param.value.trim();
 
                 params.push(paramToken);

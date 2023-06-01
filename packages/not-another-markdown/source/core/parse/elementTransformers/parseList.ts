@@ -1,5 +1,5 @@
 import ElementInstance from '@photon-rush/not-another-markdown/source/core/parse/ElementInstance';
-import {Token} from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
+import { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
 import ParagraphElement from '@photon-rush/not-another-markdown/source/core/parse/elements/ParagraphElement';
 import ListItemElement from '@photon-rush/not-another-markdown/source/core/parse/elements/ListItemElement';
@@ -15,15 +15,15 @@ const listStart = new Set<Token>([
 ]);
 
 interface ListItemTemplate {
-    type: Token;
-    indent: number;
-    element: ListItemElement | DefinitionListItemElement;
+    type   : Token,
+    indent : number,
+    element: ListItemElement | DefinitionListItemElement,
 }
 
 function readListItem(input: TokenStream): Result<ListItemTemplate> {
     const result = new Result<ListItemTemplate>();
 
-    const type = input.next().type;
+    const type   = input.next().type;
     const indent = input.next().value.length;
 
     let value = result.extract(ParagraphElement.parse(input));

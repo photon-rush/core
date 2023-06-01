@@ -3,19 +3,19 @@ import {
     IPhotonObjectPrototype,
     ISimplePhotonObject,
 } from '@photon-rush/sg.core/source/photon/IPhotonObject';
-import {deserialize, serialize} from '@photon-rush/sg.core/source/util/serialization';
+import { deserialize, serialize } from '@photon-rush/sg.core/source/util/serialization';
 
 interface IObjectEntry {
-    handle: string;
-    sgObject: IPhotonObject;
-    global: boolean;
+    handle  : string,
+    sgObject: IPhotonObject,
+    global  : boolean,
 }
 
 export default class ObjectManager {
-    readonly #constructors: Map<string, IPhotonObjectPrototype<unknown>>;
-    readonly #objects: Map<string, IObjectEntry>;
+    readonly #constructors : Map<string, IPhotonObjectPrototype<unknown>>;
+    readonly #objects      : Map<string, IObjectEntry>;
     readonly #globalObjects: Map<string, IObjectEntry>;
-    #currentHandle: number;
+    #currentHandle         : number;
 
     constructor() {
         this.#constructors  = new Map();

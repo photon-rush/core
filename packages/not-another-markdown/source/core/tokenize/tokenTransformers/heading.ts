@@ -2,7 +2,7 @@ import CharacterStream, {
     IReadonlyCharacterStream,
 } from '@photon-rush/not-another-markdown/source/core/tokenize/CharacterStream';
 import TokenFactory from '@photon-rush/not-another-markdown/source/core/tokenize/TokenFactory';
-import TokenInstance, {Token} from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
+import TokenInstance, { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import Result from '@photon-rush/results/source/Result';
 
 export default {
@@ -31,24 +31,24 @@ export default {
         let type: Token = Token.UNKNOWN;
 
         switch (level) {
-            case 1:
-                type = Token.HEADING1;
-                break;
-            case 2:
-                type = Token.HEADING2;
-                break;
-            case 3:
-                type = Token.HEADING3;
-                break;
-            case 4:
-                type = Token.HEADING4;
-                break;
-            case 5:
-                type = Token.HEADING5;
-                break;
-            case 6:
-                type = Token.HEADING6;
-                break;
+        case 1:
+            type = Token.HEADING1;
+            break;
+        case 2:
+            type = Token.HEADING2;
+            break;
+        case 3:
+            type = Token.HEADING3;
+            break;
+        case 4:
+            type = Token.HEADING4;
+            break;
+        case 5:
+            type = Token.HEADING5;
+            break;
+        case 6:
+            type = Token.HEADING6;
+            break;
         }
 
         result.value = [

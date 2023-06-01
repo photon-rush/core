@@ -9,21 +9,21 @@ export type RecognizerFn = (input: IReadonlyCharacterStream, tokenFactory: Token
 export type ParserFn = (input: CharacterStream, tokenFactory: TokenFactory) => Result<Array<TokenInstance>>;
 
 export interface ITokenTransformer {
-    get name(): string;
+    get name(): string,
 
-    recognize: RecognizerFn;
-    parse: ParserFn;
+    recognize: RecognizerFn,
+    parse    : ParserFn,
 }
 
 export class TokenTransformer implements ITokenTransformer {
-    private _name: string;
+    private _name     : string;
     private _recognize: RecognizerFn;
-    private _parse: ParserFn;
+    private _parse    : ParserFn;
 
     constructor(name: string, recognize: RecognizerFn, parse: ParserFn) {
-        this._name = name;
+        this._name      = name;
         this._recognize = recognize;
-        this._parse = parse;
+        this._parse     = parse;
     }
 
     get name() { return this._name; }

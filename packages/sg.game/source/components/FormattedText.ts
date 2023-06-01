@@ -1,5 +1,5 @@
 import fromString from '@photon-rush/not-another-markdown/source/loader/fromString';
-import ElementInstance, {Elements} from '@photon-rush/not-another-markdown/source/core/parse/ElementInstance';
+import ElementInstance, { Elements } from '@photon-rush/not-another-markdown/source/core/parse/ElementInstance';
 import DocumentElement from '@photon-rush/not-another-markdown/source/core/parse/elements/DocumentElement';
 import HeadingElement from '@photon-rush/not-another-markdown/source/core/parse/elements/HeadingElement';
 import TextElement from '@photon-rush/not-another-markdown/source/core/parse/elements/TextElement';
@@ -10,18 +10,18 @@ import React from 'react';
 const h = React.createElement;
 
 export interface IFormattedText {
-    notMarkdownText: string;
+    notMarkdownText: string,
 }
 
 const conversionTable: Partial<Record<Elements, (element: any) => React.DOMElement<React.DOMAttributes<Element>, Element>>> = {};
 
-conversionTable[Elements.HEADING] = (element: HeadingElement) => h(`h${element.level}`, {key: element.id}, element.text);
-conversionTable[Elements.TEXT] = (element: TextElement) => h('p', {key: element.id}, element.text);
+conversionTable[Elements.HEADING] = (element: HeadingElement) => h(`h${element.level}`, { key: element.id }, element.text);
+conversionTable[Elements.TEXT]    = (element: TextElement) => h('p', { key: element.id }, element.text);
 
 
 export default class FormattedText extends React.Component<IFormattedText> {
     render() {
-        const content = this.props.notMarkdownText;
+        const content     = this.props.notMarkdownText;
         const parseResult = fromString(content);
 
         if (parseResult.value) {
@@ -34,7 +34,7 @@ export default class FormattedText extends React.Component<IFormattedText> {
 
         return h('div', null, [
             this.prepare(parseResult),
-            h('pre', {key: 'blarg'}, content),
+            h('pre', { key: 'blarg' }, content),
         ]);
     }
 
@@ -62,7 +62,7 @@ export default class FormattedText extends React.Component<IFormattedText> {
                 return convertor(e);
             } else {
                 return h('p', {
-                    key: e.id,
+                    key     : e.id,
                     children: `Unknown Type: ${e.type} (${e.id})`,
                 });
             }
@@ -70,7 +70,7 @@ export default class FormattedText extends React.Component<IFormattedText> {
 
         //console.log(children);
 
-        return h('section', {key: 'blah'}, ...children);
+        return h('section', { key: 'blah' }, ...children);
     }
 
 

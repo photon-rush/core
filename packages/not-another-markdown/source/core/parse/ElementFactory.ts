@@ -1,13 +1,13 @@
-import ElementInstance, {Elements} from '@photon-rush/not-another-markdown/source/core/parse/ElementInstance';
-import {ElementTransformer} from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
-import TokenInstance, {Token} from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
+import ElementInstance, { Elements } from '@photon-rush/not-another-markdown/source/core/parse/ElementInstance';
+import { ElementTransformer } from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
+import TokenInstance, { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
 import Result from '@photon-rush/results/source/Result';
 import VResult from '@photon-rush/results/source/VResult';
 
 export default class ElementFactory {
-    private _input: TokenStream;
-    private _output: VResult<Array<ElementInstance>>;
+    private _input  : TokenStream;
+    private _output : VResult<Array<ElementInstance>>;
     private _unknown: Array<TokenInstance>;
 
     private _transformers: Array<ElementTransformer>;
@@ -40,9 +40,9 @@ export default class ElementFactory {
 
         if (options.length === 0) {
             result.add({
-                level : 'warning',
-                text  : `${this._input.position.toString()
-                               .padStart(4, '0')} No element transformer! ${this._input.peek()}`,
+                level: 'warning',
+                text : `${this._input.position.toString()
+                    .padStart(4, '0')} No element transformer! ${this._input.peek()}`,
                 source: 'ElementFactory',
             });
 
@@ -51,12 +51,12 @@ export default class ElementFactory {
             this._unknown.push(this._input.next());
         } else if (options.length > 1) {
             const transformerList = options.map(t => t.name)
-                                           .join(', ');
+                .join(', ');
 
             result.add({
-                level : 'error',
-                text  : `${this._input.position.toString()
-                               .padStart(4, '0')} Ambiguous element transformers! ${this._input.peek().type}: ${transformerList}`,
+                level: 'error',
+                text : `${this._input.position.toString()
+                    .padStart(4, '0')} Ambiguous element transformers! ${this._input.peek().type}: ${transformerList}`,
                 source: 'ElementFactory',
             });
 

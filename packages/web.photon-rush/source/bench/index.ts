@@ -1,9 +1,9 @@
-import getTestData, {ITestData} from '@photon-rush/web.photon-rush/source/bench/getTestData';
-import {testForEachLoop, testForLoop, testForOfLoop} from '@photon-rush/web.photon-rush/source/bench/tests';
+import getTestData, { ITestData } from '@photon-rush/web.photon-rush/source/bench/getTestData';
+import { testForEachLoop, testForLoop, testForOfLoop } from '@photon-rush/web.photon-rush/source/bench/tests';
 
 interface ITestResult {
     delta: number,
-    name: string
+    name : string,
 }
 
 async function runTest(element: HTMLElement | null, name: string, fn: (data: Array<number>) => void) {

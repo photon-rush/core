@@ -1,10 +1,10 @@
-import {isLineTerminator, isWhitespace} from '@photon-rush/not-another-markdown/source/characters';
+import { isLineTerminator, isWhitespace } from '@photon-rush/not-another-markdown/source/characters';
 import CharacterStream, {
     IReadonlyCharacterStream,
 } from '@photon-rush/not-another-markdown/source/core/tokenize/CharacterStream';
-import TokenInstance, {Token} from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
+import TokenInstance, { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenFactory from '@photon-rush/not-another-markdown/source/core/tokenize/TokenFactory';
-import {orderedListTransformers} from '@photon-rush/not-another-markdown/source/core/tokenize/tokenTransformers/index';
+import { orderedListTransformers } from '@photon-rush/not-another-markdown/source/core/tokenize/tokenTransformers/index';
 import Result from '@photon-rush/results/source/Result';
 
 const SEPARATOR = '.';

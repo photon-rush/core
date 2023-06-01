@@ -1,26 +1,26 @@
-import {BuildMode, OperatingSystem, Platform, Storefront} from '@photon-rush/automation.core/source/constants';
-import {IPhotonObject, ISimplePhotonObject} from '@photon-rush/sg.core/source/photon/IPhotonObject';
+import { BuildMode, OperatingSystem, Platform, Storefront } from '@photon-rush/automation.core/source/constants';
+import { IPhotonObject, ISimplePhotonObject } from '@photon-rush/sg.core/source/photon/IPhotonObject';
 
 export interface IFlags {
-    firstRun: boolean;
-    noIntro: boolean;
+    firstRun: boolean,
+    noIntro : boolean,
 
-    os: OperatingSystem;
-    platform: Platform;
-    store: Storefront;
-    mode: BuildMode;
+    os      : OperatingSystem,
+    platform: Platform,
+    store   : Storefront,
+    mode    : BuildMode,
 
-    features: Record<string, string>;
+    features: Record<string, string>,
 }
 
 export default class Flags implements IPhotonObject<IFlags>, IFlags {
     readonly #firstRun: boolean;
-    readonly #noIntro: boolean;
+    readonly #noIntro : boolean;
 
-    readonly #os: OperatingSystem;
+    readonly #os      : OperatingSystem;
     readonly #platform: Platform;
-    readonly #store: Storefront;
-    readonly #mode: BuildMode;
+    readonly #store   : Storefront;
+    readonly #mode    : BuildMode;
 
     readonly #features: Readonly<Record<string, string>>;
 

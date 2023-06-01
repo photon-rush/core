@@ -7,13 +7,13 @@ export enum ParseErrorLevel {
 }
 
 export default class ParseMessage {
-    private _text: string;
-    private _level: ParseErrorLevel;
+    private _text    : string;
+    private _level   : ParseErrorLevel;
     private _location: SourceLocation;
 
     constructor(text: string, level: ParseErrorLevel = ParseErrorLevel.Info, location?: SourceLocation | null) {
-        this._text = text;
-        this._level = level;
+        this._text     = text;
+        this._level    = level;
         this._location = location = new SourceLocation(location);
     }
 

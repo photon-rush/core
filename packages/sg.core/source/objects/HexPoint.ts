@@ -1,5 +1,5 @@
 import Point from '@photon-rush/sg.core/source/objects/Point';
-import {IPhotonObject, ISimplePhotonObject} from '@photon-rush/sg.core/source/photon/IPhotonObject';
+import { IPhotonObject, ISimplePhotonObject } from '@photon-rush/sg.core/source/photon/IPhotonObject';
 
 const layoutMatrix = Object.freeze({
     f0: 3 / 2,
@@ -16,8 +16,8 @@ const layoutMatrix = Object.freeze({
 });
 
 export interface IHexPoint {
-    q: number;
-    r: number;
+    q: number,
+    r: number,
 }
 
 
@@ -155,7 +155,7 @@ export default class HexPoint implements IPhotonObject<IHexPoint>, IHexPoint {
         return points
             .map(p => `${p.x},${p.y}`)
             .join(' ')
-            ;
+        ;
     }
 
     static get zero() {

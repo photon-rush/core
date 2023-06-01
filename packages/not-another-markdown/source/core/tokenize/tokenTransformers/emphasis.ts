@@ -1,9 +1,9 @@
-import {isWhitespace} from '@photon-rush/not-another-markdown/source/characters';
+import { isWhitespace } from '@photon-rush/not-another-markdown/source/characters';
 import CharacterStream, {
     IReadonlyCharacterStream,
 } from '@photon-rush/not-another-markdown/source/core/tokenize/CharacterStream';
 import TokenFactory from '@photon-rush/not-another-markdown/source/core/tokenize/TokenFactory';
-import TokenInstance, {Token} from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
+import TokenInstance, { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import Result from '@photon-rush/results/source/Result';
 
 

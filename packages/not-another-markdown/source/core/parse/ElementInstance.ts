@@ -28,23 +28,23 @@ export enum Elements {
 export type ISimpleElementData = Record<string, string | number | boolean | Array<string>>;
 
 export interface ISimpleElement {
-    type: Elements;
-    children?: Array<ISimpleElement>;
-    data?: ISimpleElementData;
+    type     : Elements,
+    children?: Array<ISimpleElement>,
+    data?    : ISimpleElementData,
 }
 
 export default abstract class ElementInstance {
     private _children: Array<ElementInstance>;
-    private _type: Elements;
-    private _parent: ElementInstance | null;
-    private _id: string;
+    private _type    : Elements;
+    private _parent  : ElementInstance | null;
+    private _id      : string;
 
 
     constructor(type: Elements) {
-        this._type = type;
+        this._type     = type;
         this._children = [];
-        this._parent = null;
-        this._id = `${type}_${idFactory.next()}`;
+        this._parent   = null;
+        this._id       = `${type}_${idFactory.next()}`;
 
 
     }
@@ -119,7 +119,7 @@ export default abstract class ElementInstance {
     }
 
     toString() {
-        const type = this.type.padStart(20);
+        const type  = this.type.padStart(20);
         const value = JSON.stringify(this.simplify()).replaceAll('\n', ' ');
 
         return `${type} |> ${value}`;

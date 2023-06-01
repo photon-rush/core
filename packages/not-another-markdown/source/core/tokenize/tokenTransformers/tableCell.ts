@@ -1,7 +1,7 @@
 import CharacterStream, {
     IReadonlyCharacterStream,
 } from '@photon-rush/not-another-markdown/source/core/tokenize/CharacterStream';
-import TokenInstance, {Token} from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
+import TokenInstance, { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenFactory from '@photon-rush/not-another-markdown/source/core/tokenize/TokenFactory';
 import Result from '@photon-rush/results/source/Result';
 

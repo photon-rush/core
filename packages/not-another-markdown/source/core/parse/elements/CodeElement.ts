@@ -2,26 +2,26 @@ import ElementInstance, {
     Elements,
     ISimpleElementData,
 } from '@photon-rush/not-another-markdown/source/core/parse/ElementInstance';
-import {ElementTransformer} from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
-import {Token} from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
+import { ElementTransformer } from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
+import { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
 import Result from '@photon-rush/results/source/Result';
 
 export default class CodeElement extends ElementInstance {
-    public text: string;
+    public text    : string;
     public language: string;
 
     constructor(language: string = '', text: string = '') {
         super(Elements.CODE);
 
-        this.text = text.trim();
+        this.text     = text.trim();
         this.language = language;
     }
 
     simplify(): ISimpleElementData {
         return {
             language: this.language,
-            text: this.text,
+            text    : this.text,
         };
     }
 
@@ -47,9 +47,9 @@ export default class CodeElement extends ElementInstance {
 
     static get transformer() {
         return ElementTransformer.fromObject({
-            name: 'CodeElement',
+            name     : 'CodeElement',
             recognize: this.recognize,
-            parse: this.parse,
+            parse    : this.parse,
         });
     }
 }

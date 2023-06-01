@@ -2,8 +2,8 @@ import ElementInstance, {
     Elements,
     ISimpleElementData,
 } from '@photon-rush/not-another-markdown/source/core/parse/ElementInstance';
-import {ElementTransformer} from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
-import {Token} from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
+import { ElementTransformer } from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
+import { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
 import parseText from '@photon-rush/not-another-markdown/source/core/parse/elementTransformers/parseText';
 import Result from '@photon-rush/results/source/Result';
@@ -28,9 +28,9 @@ export default class ParagraphElement extends ElementInstance {
 
     static get transformer() {
         return ElementTransformer.fromObject({
-            name: 'ParagraphElement',
+            name     : 'ParagraphElement',
             recognize: this.recognize,
-            parse: this.parse,
+            parse    : this.parse,
         });
     }
 }

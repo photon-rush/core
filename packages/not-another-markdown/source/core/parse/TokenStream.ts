@@ -1,5 +1,5 @@
 import BaseStream from '@photon-rush/not-another-markdown/source/core/BaseStream';
-import TokenInstance, {Token} from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
+import TokenInstance, { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 
 export default class TokenStream extends BaseStream<TokenInstance> {
 
@@ -26,7 +26,7 @@ export default class TokenStream extends BaseStream<TokenInstance> {
     }
 
     consume(terminals: Array<Token>) {
-        const value = this.consumeUntil(terminals);
+        const value    = this.consumeUntil(terminals);
         const terminal = this.next();
 
         return {

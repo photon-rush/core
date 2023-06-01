@@ -1,5 +1,5 @@
 import ElementInstance from '@photon-rush/not-another-markdown/source/core/parse/ElementInstance';
-import {Token} from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
+import { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
 import CommandElement from '@photon-rush/not-another-markdown/source/core/parse/elements/CommandElement';
 import TextElement from '@photon-rush/not-another-markdown/source/core/parse/elements/TextElement';

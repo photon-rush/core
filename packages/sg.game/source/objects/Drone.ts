@@ -1,4 +1,4 @@
-import NumberAttribute, {clampZero} from '@photon-rush/sg.game/source/objects/NumberAttribute';
+import NumberAttribute, { clampZero } from '@photon-rush/sg.game/source/objects/NumberAttribute';
 
 function speedFn(term1: number, term2: number): number {
     return Math.ceil(((term1 + term2) * 10) / 1000);
@@ -22,20 +22,20 @@ function calculateSense(drone: Drone): number {
 
 
 export default class Drone {
-    #level: number     = 0;
-    name: string       = '';
+    #level    : number     = 0;
+    name      : string       = '';
     experience: number = 0;
 
     health: number = 0;
-    armor: number  = 0;
+    armor : number  = 0;
     shield: number = 0;
 
-    readonly #speed: NumberAttribute;
-    readonly #sense: NumberAttribute;
-    readonly #capability: NumberAttribute;
-    readonly #perception: NumberAttribute;
+    readonly #speed       : NumberAttribute;
+    readonly #sense       : NumberAttribute;
+    readonly #capability  : NumberAttribute;
+    readonly #perception  : NumberAttribute;
     readonly #intelligence: NumberAttribute;
-    readonly #gumption: NumberAttribute;
+    readonly #gumption    : NumberAttribute;
 
 
     constructor(name: string = '', level: number = 0) {

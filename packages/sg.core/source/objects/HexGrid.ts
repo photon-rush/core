@@ -1,13 +1,13 @@
 import HexPoint from '@photon-rush/sg.core/source/objects/HexPoint';
 
 interface IGridEntry<T> {
-    location: HexPoint;
-    value: T;
+    location: HexPoint,
+    value   : T,
 }
 
 export default class HexGrid<T> {
     readonly #_cells: Map<string, IGridEntry<T>>;
-    readonly #_size: number;
+    readonly #_size : number;
 
     constructor(size: number, empty: T) {
         this.#_size  = size;
@@ -20,12 +20,12 @@ export default class HexGrid<T> {
         this.#_cells.clear();
 
         HexPoint.createGrid(this.#_size)
-                .forEach(location => {
-                    this.#_cells.set(location.id, {
-                        location,
-                        value: empty,
-                    });
+            .forEach(location => {
+                this.#_cells.set(location.id, {
+                    location,
+                    value: empty,
                 });
+            });
     }
 
     get(location: HexPoint) {
@@ -41,9 +41,9 @@ export default class HexGrid<T> {
      */
     forEach(fn: (entry: IGridEntry<T>) => void) {
         HexPoint.createGrid(this.#_size)
-                .forEach(location => {
-                    fn(this.get(location)); //TODO: make this a for loop like the 'createGrid' implementation
-                });
+            .forEach(location => {
+                fn(this.get(location)); //TODO: make this a for loop like the 'createGrid' implementation
+            });
     }
 
 }

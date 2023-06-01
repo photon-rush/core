@@ -1,11 +1,11 @@
-import {entry} from '@photon-rush/not-another-markdown/source/core';
-import {ParseMode} from '@photon-rush/not-another-markdown/source/core/IParseOptions';
+import { entry } from '@photon-rush/not-another-markdown/source/core';
+import { ParseMode } from '@photon-rush/not-another-markdown/source/core/IParseOptions';
 import ElementInstance, {
     Elements,
     ISimpleElementData,
 } from '@photon-rush/not-another-markdown/source/core/parse/ElementInstance';
-import {ElementTransformer} from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
-import {Token} from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
+import { ElementTransformer } from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
+import { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
 import Result from '@photon-rush/results/source/Result';
 
@@ -26,7 +26,7 @@ export default class BlockquoteElement extends ElementInstance {
 
     static parse(input: TokenStream): Result<BlockquoteElement> {
         const element = new BlockquoteElement();
-        const result = new Result<BlockquoteElement>(element);
+        const result  = new Result<BlockquoteElement>(element);
 
         let content = '';
 
@@ -46,9 +46,9 @@ export default class BlockquoteElement extends ElementInstance {
 
     static get transformer() {
         return ElementTransformer.fromObject({
-            name: 'BlockquoteElement',
+            name     : 'BlockquoteElement',
             recognize: this.recognize,
-            parse: this.parse,
+            parse    : this.parse,
         });
     }
 }

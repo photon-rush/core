@@ -1,24 +1,24 @@
-import {IPhotonObject, ISimplePhotonObject} from '@photon-rush/sg.core/source/photon/IPhotonObject';
+import { IPhotonObject, ISimplePhotonObject } from '@photon-rush/sg.core/source/photon/IPhotonObject';
 
 export interface ICounter {
-    value: number;
-    increment: number;
-    frequency: number;
-    cap: number;
-    active: boolean;
-    bypass: boolean;
+    value    : number,
+    increment: number,
+    frequency: number,
+    cap      : number,
+    active   : boolean,
+    bypass   : boolean,
 }
 
 
 export default class Counter implements IPhotonObject<ICounter>, ICounter {
     #accumulator: number;
-    #frequency: number;
+    #frequency  : number;
 
-    value: number;
+    value    : number;
     increment: number;
-    cap: number;
-    active: boolean;
-    bypass: boolean;
+    cap      : number;
+    active   : boolean;
+    bypass   : boolean;
 
     constructor(counter?: ICounter) {
         if (counter) {
@@ -84,7 +84,7 @@ export default class Counter implements IPhotonObject<ICounter>, ICounter {
         this.#accumulator = this.#accumulator + (current - previous);
 
         if (this.#accumulator >= this.frequency) {
-            this.value += this.increment;
+            this.value       += this.increment;
             this.#accumulator = 0;
         }
 

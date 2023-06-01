@@ -1,4 +1,4 @@
-import {ISimplePhotonObject} from '@photon-rush/sg.core/source/photon/IPhotonObject';
+import { ISimplePhotonObject } from '@photon-rush/sg.core/source/photon/IPhotonObject';
 
 enum SpecialType {
     NOT_A_NUMBER      = '☠nan',
@@ -44,21 +44,21 @@ function deserializeValue(value: any) {
     } else if (typeof value === 'object') {
         if (value.type) {
             switch (value.type) {
-                case SpecialType.DATE:
-                    return new Date(Date.parse(value.value));
-                case SpecialType.INFINITY_POSITIVE:
-                    return Infinity;
-                case SpecialType.INFINITY_NEGATIVE:
-                    return -Infinity;
-                case SpecialType.NOT_A_NUMBER:
-                    return NaN;
+            case SpecialType.DATE:
+                return new Date(Date.parse(value.value));
+            case SpecialType.INFINITY_POSITIVE:
+                return Infinity;
+            case SpecialType.INFINITY_NEGATIVE:
+                return -Infinity;
+            case SpecialType.NOT_A_NUMBER:
+                return NaN;
             }
         }
 
         const result: Record<string, any> = {};
 
         Object.keys(value)
-              .forEach(key => result[key] = deserializeValue(value[key]));
+            .forEach(key => result[key] = deserializeValue(value[key]));
 
         return result;
     } else {
@@ -94,7 +94,7 @@ function serializeValue(value: any) {
         const result: any = {};
 
         Object.keys(value)
-              .forEach(key => result[key] = serializeValue(value[key]));
+            .forEach(key => result[key] = serializeValue(value[key]));
 
         return result;
     } else {

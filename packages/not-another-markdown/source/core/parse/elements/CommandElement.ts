@@ -2,13 +2,13 @@ import ElementInstance, {
     Elements,
     ISimpleElementData,
 } from '@photon-rush/not-another-markdown/source/core/parse/ElementInstance';
-import {ElementTransformer} from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
-import {Token} from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
+import { ElementTransformer } from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
+import { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
 import Result from '@photon-rush/results/source/Result';
 
 export default class CommandElement extends ElementInstance {
-    public name: string;
+    public name      : string;
     public parameters: Array<string>;
 
     constructor(name: string = '') {

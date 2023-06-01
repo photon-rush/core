@@ -26,7 +26,7 @@ function addHexagon(radius: number, location: Vector3, points: Array<Vector3>) {
 }
 
 function constructHexagonGrid(radius: number, rows: number = 64, columns: number = 64) {
-    const radiusHalf = radius * .5;
+    const radiusHalf   = radius * .5;
     const radiusDouble = radius * 2;
 
     const points: Array<Vector3> = [];
@@ -47,24 +47,24 @@ function constructHexagonGrid(radius: number, rows: number = 64, columns: number
 
     console.log(points);
 
-    const material = new THREE.LineBasicMaterial({color: 0xFFFFFF});
+    const material = new THREE.LineBasicMaterial({ color: 0xFFFFFF });
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
-    const line = new THREE.LineSegments(geometry, material);
+    const line     = new THREE.LineSegments(geometry, material);
 
     return line;
 }
 
 
 export default class ThreeManager {
-    readonly #scene: Scene;
+    readonly #scene   : Scene;
     readonly #renderer: Renderer;
-    readonly #camera: Camera;
+    readonly #camera  : Camera;
 
     constructor(canvasElement: HTMLCanvasElement) {
-        this.#scene = new THREE.Scene();
-        this.#camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+        this.#scene    = new THREE.Scene();
+        this.#camera   = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
         this.#renderer = new THREE.WebGLRenderer({
-            canvas: canvasElement,
+            canvas   : canvasElement,
             antialias: false,
         });
 
@@ -73,9 +73,9 @@ export default class ThreeManager {
         this.#renderer.setSize(512, 512);
 
 
-        const material = new THREE.PointsMaterial({color: 0xFF00FF});
+        const material = new THREE.PointsMaterial({ color: 0xFF00FF });
         const geometry = new THREE.BufferGeometry().setFromPoints([new Vector3()]);
-        const center = new THREE.Points(geometry, material);
+        const center   = new THREE.Points(geometry, material);
 
 
         this.#scene.add(constructHexagonGrid(2));

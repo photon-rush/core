@@ -2,7 +2,7 @@ import CharacterStream from '@photon-rush/not-another-markdown/source/core/token
 import TokenFactory from '@photon-rush/not-another-markdown/source/core/tokenize/TokenFactory';
 
 import IParseOptions from '@photon-rush/not-another-markdown/source/core/IParseOptions';
-import {printTokens} from '@photon-rush/not-another-markdown/source/core/tokenize/printTokens';
+import { printTokens } from '@photon-rush/not-another-markdown/source/core/tokenize/printTokens';
 import tokenTransformers from '@photon-rush/not-another-markdown/source/core/tokenize/tokenTransformers';
 import Result from '@photon-rush/results/source/Result';
 import TokenInstance from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';

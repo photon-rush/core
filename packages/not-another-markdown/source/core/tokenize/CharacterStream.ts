@@ -1,35 +1,35 @@
 /* eslint-disable no-constant-condition */
 
-import {isLineTerminator, isWhitespace} from '@photon-rush/not-another-markdown/source/characters';
+import { isLineTerminator, isWhitespace } from '@photon-rush/not-another-markdown/source/characters';
 import BaseStream from '@photon-rush/not-another-markdown/source/core/BaseStream';
 import SourceLocation from '@photon-rush/not-another-markdown/source/core/SourceLocation';
 import ISourceLocation from '@photon-rush/not-another-markdown/source/core/SourceLocation';
 
 export interface IReadonlyCharacterStream {
-    peek(at?: number): string;
+    peek(at?: number): string,
 
-    match(value: string | ReadonlyArray<string>): boolean;
+    match(value: string | ReadonlyArray<string>): boolean,
 
-    matchLine(char: string): boolean;
+    matchLine(char: string): boolean,
 
-    get length(): number;
+    get length(): number,
 
-    get last(): string;
+    get last(): string,
 }
 
 /**
  * Produces characters from SourceText
  */
 export default class CharacterStream extends BaseStream<string> implements IReadonlyCharacterStream {
-    private _fileLocation: string;
-    private _currentLine: number;
+    private _fileLocation : string;
+    private _currentLine  : number;
     private _currentColumn: number;
 
     constructor(sourceText: string, fileLocation?: string | null) {
         super(sourceText, '');
 
-        this._fileLocation = fileLocation || '';
-        this._currentLine = 0;
+        this._fileLocation  = fileLocation || '';
+        this._currentLine   = 0;
         this._currentColumn = 0;
     }
 
@@ -50,12 +50,12 @@ export default class CharacterStream extends BaseStream<string> implements IRead
 
     getSourceLocation(): ISourceLocation {
         return new SourceLocation({
-            length: this.length,
-            position: this.position,
-            line: this._currentLine,
-            column: this._currentColumn,
+            length      : this.length,
+            position    : this.position,
+            line        : this._currentLine,
+            column      : this._currentColumn,
             fileLocation: this.fileLocation,
-            valid: true,
+            valid       : true,
         });
     }
 
@@ -91,7 +91,7 @@ export default class CharacterStream extends BaseStream<string> implements IRead
      * @returns An object containing the value and the terminal that stopped the consumer. If the consumer reached the end of the content, the terminal will be the empty string.
      */
     consume(terminals: Array<string> | string, escape: boolean = true) {
-        const value = this.consumeUntil(terminals, escape);
+        const value    = this.consumeUntil(terminals, escape);
         const terminal = this.next();
 
         return {
@@ -111,12 +111,12 @@ export default class CharacterStream extends BaseStream<string> implements IRead
             ? new Set<string>([terminals])
             : new Set<string>(terminals);
 
-        let acc = '';
+        let acc        = '';
         let makeEscape = false;
 
         while (this.notDone) {
             if (makeEscape) {
-                acc += this.next();
+                acc       += this.next();
                 makeEscape = false;
             } else if (this.peek() === '\\' && escape) {
                 this.next();

@@ -1,12 +1,12 @@
 import CharacterStream from '@photon-rush/not-another-markdown/source/core/tokenize/CharacterStream';
-import TokenInstance, {Token} from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
-import {TokenTransformer} from '@photon-rush/not-another-markdown/source/core/tokenize/TokenTransformer';
+import TokenInstance, { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
+import { TokenTransformer } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenTransformer';
 import Result from '@photon-rush/results/source/Result';
 import VResult from '@photon-rush/results/source/VResult';
 
 
 export default class TokenFactory {
-    private _input: CharacterStream;
+    private _input : CharacterStream;
     private _output: VResult<Array<TokenInstance>>;
 
     private _transformers: Array<TokenTransformer>;
@@ -69,7 +69,7 @@ export default class TokenFactory {
     }
 
     next() {
-        const result = new Result<Array<TokenInstance>>();
+        const result  = new Result<Array<TokenInstance>>();
         const options = this._transformers.filter(tk => tk.recognize(this._input, this)); //TODO: create actual readonly proxy
 
         if (options.length === 0) {
@@ -78,8 +78,8 @@ export default class TokenFactory {
             const tokens = options.map(t => t.name).join(', ');
 
             result.add({
-                level: 'error',
-                text: `${this._input.getSourceLocation()} Ambiguous tokens! "${tokens}"`,
+                level : 'error',
+                text  : `${this._input.getSourceLocation()} Ambiguous tokens! "${tokens}"`,
                 source: 'tokenFactory',
             });
         } else {
@@ -103,8 +103,8 @@ export default class TokenFactory {
 
         if (this._hasText()) {
             result.add({
-                level: 'error',
-                text: 'Cannot add a phrase element because there is text on the stack.',
+                level : 'error',
+                text  : 'Cannot add a phrase element because there is text on the stack.',
                 source: 'TokenFactory',
             });
 
@@ -113,7 +113,7 @@ export default class TokenFactory {
 
 
         const tokens: Array<TokenInstance> = [];
-        result.value = tokens;
+        result.value                       = tokens;
 
         while (this.notDone) {
             if (this._input.peek() === '\n') break;

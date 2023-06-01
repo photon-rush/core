@@ -1,16 +1,16 @@
 export interface ITool {
-    name: string;
+    name: string,
 
-    cooldown: number; // Time (in seconds) before the tool can be used again
-    speed: number;    // Time (in seconds) it takes to use the tool
-    cost: number;     // The amount of energy required to activate the tool
+    cooldown: number, // Time (in seconds) before the tool can be used again
+    speed   : number,    // Time (in seconds) it takes to use the tool
+    cost    : number,     // The amount of energy required to activate the tool
 
-    attributes: Array<IStatChange>; // Changes to drone stats when equipped
+    attributes: Array<IStatChange>, // Changes to drone stats when equipped
 }
 
 export interface IStatChange {
-    name: string;
-    change: (value: number) => number;
+    name  : string,
+    change: (value: number) => number,
 }
 
 export enum InstructionTarget {
@@ -28,7 +28,7 @@ export enum InstructionAction {
 }
 
 export interface Instruction {
-    target: InstructionTarget;
-    action: InstructionAction;
+    target: InstructionTarget,
+    action: InstructionAction,
 
 }

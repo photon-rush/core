@@ -1,8 +1,8 @@
 const LIMIT = 5000000;
 
 export interface ITestData {
-    array: Array<number>;
-    object: Record<string, number>;
+    array : Array<number>,
+    object: Record<string, number>,
 }
 
 export default function getTestData(): ITestData {

@@ -1,7 +1,7 @@
 import DocumentFactory from '@photon-rush/not-another-markdown/source/core/parse/DocumentFactory';
 import ElementFactory from '@photon-rush/not-another-markdown/source/core/parse/ElementFactory';
 import ElementInstance from '@photon-rush/not-another-markdown/source/core/parse/ElementInstance';
-import IParseOptions, {ParseMode} from '@photon-rush/not-another-markdown/source/core/IParseOptions';
+import IParseOptions, { ParseMode } from '@photon-rush/not-another-markdown/source/core/IParseOptions';
 import elementTransformers from '@photon-rush/not-another-markdown/source/core/parse/elementTransformers';
 import printElements from '@photon-rush/not-another-markdown/source/core/parse/printElements';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
@@ -32,8 +32,8 @@ export default function parse(tokens: Array<TokenInstance>, options: IParseOptio
         result.value = [...elementFactory.elements];
     } else {
         result.add({
-            level: 'error',
-            text: `Unknown parse mode: ${options.mode}`,
+            level : 'error',
+            text  : `Unknown parse mode: ${options.mode}`,
             source: 'parse',
         });
     }

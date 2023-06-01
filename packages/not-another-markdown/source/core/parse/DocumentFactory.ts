@@ -1,5 +1,5 @@
-import ElementInstance, {Elements} from '@photon-rush/not-another-markdown/source/core/parse/ElementInstance';
-import {ElementTransformer} from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
+import ElementInstance, { Elements } from '@photon-rush/not-another-markdown/source/core/parse/ElementInstance';
+import { ElementTransformer } from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
 import TokenInstance from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
 import DocumentElement from '@photon-rush/not-another-markdown/source/core/parse/elements/DocumentElement';
@@ -8,24 +8,24 @@ import Result from '@photon-rush/results/source/Result';
 import VResult from '@photon-rush/results/source/VResult';
 
 export default class DocumentFactory {
-    private _input: TokenStream;
-    private _output: VResult<Array<DocumentElement>>;
+    private _input  : TokenStream;
+    private _output : VResult<Array<DocumentElement>>;
     private _unknown: Array<TokenInstance>;
 
     private _transformers: Array<ElementTransformer>;
 
     private _currentDocument: DocumentElement;
-    private _currentSection: SectionElement;
+    private _currentSection : SectionElement;
 
     constructor(input: TokenStream, transformers: Array<ElementTransformer>) {
-        this._input = input;
-        this._output = new VResult<Array<DocumentElement>>([]);
+        this._input   = input;
+        this._output  = new VResult<Array<DocumentElement>>([]);
         this._unknown = [];
 
         this._transformers = transformers;
 
         this._currentDocument = new DocumentElement();
-        this._currentSection = this._currentDocument.content;
+        this._currentSection  = this._currentDocument.content;
     }
 
     get done() { return this._input.done; }
@@ -37,7 +37,7 @@ export default class DocumentFactory {
 
     private _nextDocument(document: DocumentElement) {
         this._currentDocument = document;
-        this._currentSection = this._currentDocument.content;
+        this._currentSection  = this._currentDocument.content;
 
         this._output.value.push(this._currentDocument);
     }
@@ -49,8 +49,8 @@ export default class DocumentFactory {
 
         if (options.length === 0) {
             result.add({
-                level: 'warning',
-                text: `${this._input.position.toString().padStart(4, '0')} No element transformer! ${this._input.peek()}`,
+                level : 'warning',
+                text  : `${this._input.position.toString().padStart(4, '0')} No element transformer! ${this._input.peek()}`,
                 source: 'DocumentFactory',
             });
 
@@ -59,8 +59,8 @@ export default class DocumentFactory {
             const transformerList = options.map(t => t.name).join(', ');
 
             result.add({
-                level: 'error',
-                text: `${this._input.position.toString().padStart(4, '0')} Ambiguous element transformers! ${this._input.peek().type}: ${transformerList}`,
+                level : 'error',
+                text  : `${this._input.position.toString().padStart(4, '0')} Ambiguous element transformers! ${this._input.peek().type}: ${transformerList}`,
                 source: 'DocumentFactory',
             });
         } else {

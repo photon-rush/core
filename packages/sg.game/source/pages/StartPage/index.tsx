@@ -1,8 +1,8 @@
 import '@photon-rush/sg.game/source/pages/StartPage/index.scss';
 
-import {useEngine} from '@photon-rush/sg.core/source/photon';
+import { useEngine } from '@photon-rush/sg.core/source/photon';
 import Typer from '@photon-rush/sg.game/source/components/Typer';
-import Controller, {Page} from '@photon-rush/sg.game/source/Controller';
+import Controller, { Page } from '@photon-rush/sg.game/source/Controller';
 
 import React from 'react';
 
@@ -50,7 +50,7 @@ export const StartPage = () => {
     const onComplete = () => {
         engine.objects.get<Controller>('controller').frame = true;
         engine.objects.get<Controller>('controller')
-              .navigate(Page.LANDING);
+            .navigate(Page.LANDING);
     };
 
     return <div className={'start-page'}>

@@ -49,24 +49,24 @@ export enum Token {
 }
 
 export interface IToken {
-    type: Token;
-    value: string;
+    type : Token,
+    value: string,
 
-    file: string;
-    line: number;
-    column: number;
+    file  : string,
+    line  : number,
+    column: number,
 }
 
 export default class TokenInstance {
     private _type: Token;
 
-    public value: string;
+    public value   : string;
     public location: SourceLocation;
 
 
     constructor(type: Token = Token.NONE, value?: string | null, location?: ISourceLocation | null) {
-        this._type = type || Token.NONE;
-        this.value = value || '';
+        this._type    = type || Token.NONE;
+        this.value    = value || '';
         this.location = new SourceLocation(location);
     }
 
@@ -76,9 +76,9 @@ export default class TokenInstance {
 
     toString(includeFile: boolean = false, truncate?: number): string {
         const location = this.location.toString(includeFile);
-        const type = this.type.padStart(20);
-        const cut = typeof truncate === 'undefined' ? this.value : this.value.slice(0, truncate);
-        const value = cut.replaceAll('\n', '\\n');
+        const type     = this.type.padStart(20);
+        const cut      = typeof truncate === 'undefined' ? this.value : this.value.slice(0, truncate);
+        const value    = cut.replaceAll('\n', '\\n');
 
         return `${location} ${type} |> ${value}`;
     }
@@ -88,6 +88,6 @@ export default class TokenInstance {
             || token === Token.LINE_BREAK
             || token === Token.BLOCK_QUOTE
             || token === Token.CALLOUT
-            ;
+        ;
     }
 }

@@ -2,8 +2,8 @@ import ElementInstance, {
     Elements,
     ISimpleElementData,
 } from '@photon-rush/not-another-markdown/source/core/parse/ElementInstance';
-import {ElementTransformer} from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
-import {Token} from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
+import { ElementTransformer } from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
+import { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
 import SectionElement from '@photon-rush/not-another-markdown/source/core/parse/elements/SectionElement';
 import Result from '@photon-rush/results/source/Result';
@@ -19,16 +19,16 @@ const definedSections: Set<string> = new Set(Object.values(Section));
 
 export default class DocumentElement extends ElementInstance {
     private _predefinedSectionMap: Readonly<Record<Section, SectionElement>>;
-    private _otherSections: Record<string, SectionElement>;
+    private _otherSections       : Record<string, SectionElement>;
 
     constructor() {
         super(Elements.DOCUMENT);
 
         this._predefinedSectionMap = {
-            [Section.CONTENT]: new SectionElement(Section.CONTENT),
-            [Section.META]: new SectionElement(Section.META),
+            [Section.CONTENT]  : new SectionElement(Section.CONTENT),
+            [Section.META]     : new SectionElement(Section.META),
             [Section.REFERENCE]: new SectionElement(Section.REFERENCE),
-            [Section.NOTE]: new SectionElement(Section.NOTE),
+            [Section.NOTE]     : new SectionElement(Section.NOTE),
         };
 
         this.add(this._predefinedSectionMap[Section.CONTENT]);
@@ -64,7 +64,7 @@ export default class DocumentElement extends ElementInstance {
             return this._otherSections[name];
         }
 
-        const newSection = new SectionElement(name);
+        const newSection          = new SectionElement(name);
         this._otherSections[name] = newSection;
         this.add(newSection);
 
@@ -95,9 +95,9 @@ export default class DocumentElement extends ElementInstance {
 
     static get transformer() {
         return ElementTransformer.fromObject({
-            name: 'DocumentElement',
+            name     : 'DocumentElement',
             recognize: DocumentElement.recognize,
-            parse: DocumentElement.parse,
+            parse    : DocumentElement.parse,
         });
     }
 }

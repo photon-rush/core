@@ -1,9 +1,9 @@
 export default class BaseStream<T> {
-    #_buffer: Array<T>;
-    #_length: number;
+    #_buffer  : Array<T>;
+    #_length  : number;
     #_position: number;
-    #_last: T;
-    #_factory: string | (new () => T);
+    #_last    : T;
+    #_factory : string | (new () => T);
 
     #createDefault(): T {
         if (typeof this.#_factory === 'string') {
@@ -14,12 +14,12 @@ export default class BaseStream<T> {
     }
 
     constructor(iterable: Iterable<T> | ArrayLike<T>, factory: string | (new () => T)) {
-        this.#_buffer = Array.from(iterable);
-        this.#_length = this.#_buffer.length;
+        this.#_buffer   = Array.from(iterable);
+        this.#_length   = this.#_buffer.length;
         this.#_position = 0;
 
         this.#_factory = factory;
-        this.#_last = this.#createDefault();
+        this.#_last    = this.#createDefault();
     }
 
     get length() { return this.#_length; }
@@ -30,7 +30,7 @@ export default class BaseStream<T> {
 
     get location() {
         return {
-            length: this.#_length,
+            length  : this.#_length,
             position: this.#_position,
         };
     }

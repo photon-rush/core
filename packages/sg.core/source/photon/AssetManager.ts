@@ -11,7 +11,7 @@ enum ReadType {
  * Downloads resources and caches them in memory as a Blob.
  */
 export default class AssetManager {
-    readonly #cache: Map<string, Blob>;
+    readonly #cache : Map<string, Blob>;
     readonly #failed: Set<string>;
 
     constructor() {
@@ -145,18 +145,18 @@ export default class AssetManager {
             });
 
             switch (type) {
-                case ReadType.BYTES:
-                    reader.readAsArrayBuffer(blob);
-                    break;
-                case ReadType.DATA:
-                    reader.readAsDataURL(blob);
-                    break;
-                case ReadType.TEXT:
-                    reader.readAsText(blob);
-                    break;
-                default:
-                    reject('Invalid data type, this should never happen');
-                    break;
+            case ReadType.BYTES:
+                reader.readAsArrayBuffer(blob);
+                break;
+            case ReadType.DATA:
+                reader.readAsDataURL(blob);
+                break;
+            case ReadType.TEXT:
+                reader.readAsText(blob);
+                break;
+            default:
+                reject('Invalid data type, this should never happen');
+                break;
             }
         });
     }

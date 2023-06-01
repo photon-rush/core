@@ -1,8 +1,8 @@
-import {IPhotonObject, ISimplePhotonObject} from '@photon-rush/sg.core/source/photon/IPhotonObject';
+import { IPhotonObject, ISimplePhotonObject } from '@photon-rush/sg.core/source/photon/IPhotonObject';
 
 export interface IPoint {
-    x: number;
-    y: number;
+    x: number,
+    y: number,
 }
 
 export default class Point implements IPhotonObject<IPoint>, IPoint {

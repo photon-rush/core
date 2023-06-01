@@ -26,12 +26,12 @@ export default class NumberAttribute {
     readonly #owner: Drone;
 
     readonly #ceiling: NumberAttributeCalculation;
-    #ceilingModifier: number;
+    #ceilingModifier : number;
 
     readonly #floor: NumberAttributeCalculation;
-    #floorModifier: number;
+    #floorModifier : number;
 
-    #current: number;
+    #current       : number;
     currentModifier: number;
 
     constructor(owner: Drone, current: number = 0, ceiling: NumberAttributeCalculation = Infinity, floor: NumberAttributeCalculation = 0) {
