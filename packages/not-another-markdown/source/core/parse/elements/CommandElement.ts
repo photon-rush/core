@@ -5,7 +5,6 @@ import ElementInstance, {
 import { ElementTransformer } from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
 import { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
-import Result from '@photon-rush/results/source/Result';
 
 export default class CommandElement extends ElementInstance {
     public name      : string;
@@ -29,9 +28,7 @@ export default class CommandElement extends ElementInstance {
         return input.peek().type === Token.COMMAND_NAME;
     }
 
-    static parse(input: TokenStream, name?: string): Result<CommandElement> {
-        const result = new Result<CommandElement>();
-
+    static parse(input: TokenStream, name?: string): CommandElement {
         const nameActual: string = name ? name : input.next().value;
 
         const command = new CommandElement(nameActual);
@@ -40,9 +37,7 @@ export default class CommandElement extends ElementInstance {
             command.parameters.push(input.next().value);
         }
 
-        result.value = command;
-
-        return result;
+        return command;
     }
 
     static get transformer() {

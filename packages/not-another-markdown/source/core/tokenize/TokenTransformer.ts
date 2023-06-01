@@ -3,10 +3,9 @@ import CharacterStream, {
 } from '@photon-rush/not-another-markdown/source/core/tokenize/CharacterStream';
 import TokenInstance from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenFactory from '@photon-rush/not-another-markdown/source/core/tokenize/TokenFactory';
-import Result from '@photon-rush/results/source/Result';
 
 export type RecognizerFn = (input: IReadonlyCharacterStream, tokenFactory: TokenFactory) => boolean;
-export type ParserFn = (input: CharacterStream, tokenFactory: TokenFactory) => Result<Array<TokenInstance>>;
+export type ParserFn = (input: CharacterStream, tokenFactory: TokenFactory) => Array<TokenInstance>;
 
 export interface ITokenTransformer {
     get name(): string,
@@ -32,7 +31,7 @@ export class TokenTransformer implements ITokenTransformer {
         return this._recognize(input, tokenFactory);
     }
 
-    parse(input: CharacterStream, tokenFactory: TokenFactory): Result<Array<TokenInstance>> {
+    parse(input: CharacterStream, tokenFactory: TokenFactory): Array<TokenInstance> {
         return this._parse(input, tokenFactory);
     }
 

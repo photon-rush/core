@@ -5,7 +5,6 @@ import ElementInstance, {
 import { ElementTransformer } from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
 import { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
-import Result from '@photon-rush/results/source/Result';
 
 export default class HeadingElement extends ElementInstance {
     public text : string;
@@ -36,9 +35,8 @@ export default class HeadingElement extends ElementInstance {
         ]);
     }
 
-    static parse(input: TokenStream): Result<HeadingElement> {
-        const result = new Result<HeadingElement>();
-        const token  = input.next();
+    static parse(input: TokenStream): HeadingElement {
+        const token = input.next();
 
         const level = ((type: Token) => {
             switch (type) {
@@ -57,9 +55,7 @@ export default class HeadingElement extends ElementInstance {
             }
         })(token.type);
 
-        result.value = new HeadingElement(level, token.value);
-
-        return result;
+        return new HeadingElement(level, token.value);
     }
 
     static get transformer() {

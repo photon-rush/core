@@ -5,9 +5,7 @@ import ParagraphElement from '@photon-rush/not-another-markdown/source/core/pars
 import ListItemElement from '@photon-rush/not-another-markdown/source/core/parse/elements/ListItemElement';
 import UnorderedListElement from '@photon-rush/not-another-markdown/source/core/parse/elements/UnorderedListElement';
 import OrderedListElement from '@photon-rush/not-another-markdown/source/core/parse/elements/OrderedListElement';
-import DefinitionListItemElement
-    from '@photon-rush/not-another-markdown/source/core/parse/elements/DefinitionListItemElement';
-import Result from '@photon-rush/results/source/Result';
+import DefinitionListItemElement from '@photon-rush/not-another-markdown/source/core/parse/elements/DefinitionListItemElement';
 
 const listStart = new Set<Token>([
     Token.ORDERED_LIST,
@@ -20,46 +18,41 @@ interface ListItemTemplate {
     element: ListItemElement | DefinitionListItemElement,
 }
 
-function readListItem(input: TokenStream): Result<ListItemTemplate> {
-    const result = new Result<ListItemTemplate>();
-
+function readListItem(input: TokenStream): ListItemTemplate | null {
     const type   = input.next().type;
     const indent = input.next().value.length;
 
-    let value = result.extract(ParagraphElement.parse(input));
+    let value = ParagraphElement.parse(input);
+
+    let term: ParagraphElement | null = null;
+
+    if (input.peek().type === Token.LIST_TERM_DIVIDER) {
+        term = value;
+        input.next(); //:
+        value = ParagraphElement.parse(input);
+    }
 
     if (value) {
-        let term: ParagraphElement | null = null;
+        let element: ListItemElement | DefinitionListItemElement;
 
-        if (input.peek().type === Token.LIST_TERM_DIVIDER) {
-            term = value;
-            input.next(); //:
-            value = result.extract(ParagraphElement.parse(input));
+        if (term) {
+            element = new DefinitionListItemElement(term, value);
+        } else {
+            element = new ListItemElement();
+            value.transfer(element);
         }
 
-        if (value) {
-            let element: ListItemElement | DefinitionListItemElement;
+        input.next(); // lineBreak
 
-            if (term) {
-                element = new DefinitionListItemElement(term, value);
-            } else {
-                element = new ListItemElement();
-                value.transfer(element);
-            }
-
-            input.next(); // lineBreak
-
-            result.value = {
-                type,
-                indent,
-                element,
-            };
-        }
-
+        return {
+            type,
+            indent,
+            element,
+        };
     }
 
 
-    return result;
+    return null;
 }
 
 function createListContainer(type: Token): OrderedListElement | UnorderedListElement {
@@ -74,9 +67,9 @@ function createListContainer(type: Token): OrderedListElement | UnorderedListEle
 }
 
 
-function parseListRecursive(input: TokenStream, listContainer: OrderedListElement | UnorderedListElement, depth: number = 0, messages: Result) {
+function parseListRecursive(input: TokenStream, listContainer: OrderedListElement | UnorderedListElement, depth: number = 0) {
     while (listStart.has(input.peek().type)) {
-        const item = messages.extract(readListItem(input));
+        const item = readListItem(input);
 
         if (item) {
             if (item.indent > depth) {
@@ -85,7 +78,7 @@ function parseListRecursive(input: TokenStream, listContainer: OrderedListElemen
 
                 nestedList.add(item.element);
 
-                const last = parseListRecursive(input, nestedList, item.indent, messages);
+                const last = parseListRecursive(input, nestedList, item.indent);
 
                 if (last) {
                     listContainer.add(last);
@@ -99,16 +92,13 @@ function parseListRecursive(input: TokenStream, listContainer: OrderedListElemen
     }
 }
 
-export default function parseList(input: TokenStream): Result<ElementInstance> {
-    const result = new Result<ElementInstance>();
+export default function parseList(input: TokenStream): ElementInstance {
 
     if (!listStart.has(input.peek().type)) throw new Error(`Expected list, got ${input.peek().type}`);
 
     const listContainer = createListContainer(input.peek().type);
 
-    parseListRecursive(input, listContainer, 0, result);
+    parseListRecursive(input, listContainer, 0);
 
-    result.value = listContainer;
-
-    return result;
+    return listContainer;
 }

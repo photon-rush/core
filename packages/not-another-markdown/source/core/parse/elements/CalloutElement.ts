@@ -7,10 +7,8 @@ import ElementInstance, {
 import { ElementTransformer } from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
 import { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
-import Result from '@photon-rush/results/source/Result';
 
 export default class CalloutElement extends ElementInstance {
-
 
     constructor() {
         super(Elements.CALLOUT);
@@ -24,9 +22,8 @@ export default class CalloutElement extends ElementInstance {
         return input.peek().type === Token.CALLOUT;
     }
 
-    static parse(input: TokenStream): Result<CalloutElement> {
+    static parse(input: TokenStream): CalloutElement {
         const element = new CalloutElement();
-        const result  = new Result<CalloutElement>(element);
 
         let content = '';
 
@@ -34,14 +31,14 @@ export default class CalloutElement extends ElementInstance {
             content = `${content}\n${input.next().value}`;
         }
 
-        const elements = result.extract(entry({
+        const elements = entry({
             mode: ParseMode.INLINE,
             content,
-        }));
+        }).elements;
 
         if (elements) elements.forEach(e => element.add(e));
 
-        return result;
+        return element;
     }
 
     static get transformer() {

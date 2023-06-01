@@ -4,8 +4,6 @@ import CharacterStream, {
 } from '@photon-rush/not-another-markdown/source/core/tokenize/CharacterStream';
 import TokenFactory from '@photon-rush/not-another-markdown/source/core/tokenize/TokenFactory';
 import TokenInstance, { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
-import Result from '@photon-rush/results/source/Result';
-
 
 export default {
     name: 'Emphasis Token Transformer',
@@ -17,14 +15,10 @@ export default {
         return false;
     },
 
-    parse(input: CharacterStream, tokenFactory: TokenFactory): Result<Array<TokenInstance>> {
-        const result = new Result<Array<TokenInstance>>;
-
+    parse(input: CharacterStream, tokenFactory: TokenFactory): Array<TokenInstance> {
         const token = tokenFactory.createToken(Token.EMPHASIS);
         token.value = input.next();
 
-        result.value = [token];
-
-        return result;
+        return [token];
     },
 };

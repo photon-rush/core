@@ -5,7 +5,6 @@ import CharacterStream, {
 import TokenInstance, { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenFactory from '@photon-rush/not-another-markdown/source/core/tokenize/TokenFactory';
 import { tableTransformers } from '@photon-rush/not-another-markdown/source/core/tokenize/tokenTransformers/index';
-import Result from '@photon-rush/results/source/Result';
 
 export default {
     name: 'Table Row Token Transformer',
@@ -16,17 +15,13 @@ export default {
         return input.peek() === '|' && isWhitespace(input.peek(1));
     },
 
-    parse(input: CharacterStream, tokenFactory: TokenFactory): Result<Array<TokenInstance>> {
-        const result = new Result<Array<TokenInstance>>;
+    parse(input: CharacterStream, tokenFactory: TokenFactory): Array<TokenInstance> {
+        const table = tokenFactory.nextPhrase(tableTransformers);
 
-        const table = result.extract(tokenFactory.nextPhrase(tableTransformers));
-
-        result.value = [
+        return [
             tokenFactory.createToken(Token.TABLE_ROW),
             ...(table || []),
             tokenFactory.createToken(Token.LINE_BREAK),
         ];
-
-        return result;
     },
 };

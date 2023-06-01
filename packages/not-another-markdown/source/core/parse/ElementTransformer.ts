@@ -1,9 +1,8 @@
 import ElementInstance from '@photon-rush/not-another-markdown/source/core/parse/ElementInstance';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
-import Result from '@photon-rush/results/source/Result';
 
 export type RecognizerFn = (input: TokenStream) => boolean;
-export type ParserFn = (input: TokenStream) => Result<ElementInstance>;
+export type ParserFn = (input: TokenStream) => ElementInstance;
 
 export interface IElementTransformer {
     get name(): string,
@@ -29,7 +28,7 @@ export class ElementTransformer {
         return this._recognize(input);
     }
 
-    parse(input: TokenStream): Result<ElementInstance> {
+    parse(input: TokenStream): ElementInstance {
         return this._parse(input);
     }
 

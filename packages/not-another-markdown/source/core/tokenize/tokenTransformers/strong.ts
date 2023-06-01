@@ -3,8 +3,6 @@ import CharacterStream, {
 } from '@photon-rush/not-another-markdown/source/core/tokenize/CharacterStream';
 import TokenInstance, { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenFactory from '@photon-rush/not-another-markdown/source/core/tokenize/TokenFactory';
-import Result from '@photon-rush/results/source/Result';
-
 export default {
     name: 'Strong Token Transformer',
 
@@ -15,14 +13,10 @@ export default {
         return false;
     },
 
-    parse(input: CharacterStream, tokenFactory: TokenFactory): Result<Array<TokenInstance>> {
-        const result = new Result<Array<TokenInstance>>;
-
+    parse(input: CharacterStream, tokenFactory: TokenFactory): Array<TokenInstance> {
         const token = tokenFactory.createToken(Token.STRONG);
         token.value = input.next() + input.next();
 
-        result.value = [token];
-
-        return result;
+        return [token];
     },
 };

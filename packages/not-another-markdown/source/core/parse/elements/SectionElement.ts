@@ -5,7 +5,6 @@ import ElementInstance, {
 import { ElementTransformer } from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
 import { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
-import Result from '@photon-rush/results/source/Result';
 
 export default class SectionElement extends ElementInstance {
     public name: string;
@@ -33,9 +32,7 @@ export default class SectionElement extends ElementInstance {
         ]);
     }
 
-    static parse(input: TokenStream): Result<SectionElement> {
-        const result = new Result<SectionElement>();
-
+    static parse(input: TokenStream): SectionElement {
         input.next(); // Token.HORIZONTAL_RULE,
         input.next(); // Token.LINE_BREAK,
         const heading = input.next(); // Token.HEADING1,
@@ -43,9 +40,7 @@ export default class SectionElement extends ElementInstance {
         input.next(); // Token.HORIZONTAL_RULE,
         input.next(); // Token.LINE_BREAK,
 
-        result.value = new SectionElement(heading.value);
-
-        return result;
+        return new SectionElement(heading.value);
     }
 
     static get transformer() {

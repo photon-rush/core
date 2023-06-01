@@ -6,8 +6,6 @@ import { ElementTransformer } from '@photon-rush/not-another-markdown/source/cor
 import { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
 import parseText from '@photon-rush/not-another-markdown/source/core/parse/elementTransformers/parseText';
-import Result from '@photon-rush/results/source/Result';
-
 
 export default class ParagraphElement extends ElementInstance {
     constructor() {
@@ -22,7 +20,7 @@ export default class ParagraphElement extends ElementInstance {
         return input.matchOne([Token.TEXT, Token.EMPHASIS, Token.STRONG, Token.PRE]);
     }
 
-    static parse(input: TokenStream): Result<ParagraphElement> {
+    static parse(input: TokenStream): ParagraphElement {
         return parseText(input, new ParagraphElement());
     }
 

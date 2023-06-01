@@ -7,7 +7,6 @@ import ElementInstance, {
 import { ElementTransformer } from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
 import { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
-import Result from '@photon-rush/results/source/Result';
 
 export default class BlockquoteElement extends ElementInstance {
 
@@ -24,9 +23,8 @@ export default class BlockquoteElement extends ElementInstance {
         return input.peek().type === Token.BLOCK_QUOTE;
     }
 
-    static parse(input: TokenStream): Result<BlockquoteElement> {
+    static parse(input: TokenStream): BlockquoteElement {
         const element = new BlockquoteElement();
-        const result  = new Result<BlockquoteElement>(element);
 
         let content = '';
 
@@ -34,14 +32,14 @@ export default class BlockquoteElement extends ElementInstance {
             content = `${content}\n${input.next().value}`;
         }
 
-        const elements = result.extract(entry({
+        const elements = entry({
             mode: ParseMode.INLINE,
             content,
-        }));
+        }).elements;
 
         if (elements) elements.forEach(e => element.add(e));
 
-        return result;
+        return element;
     }
 
     static get transformer() {

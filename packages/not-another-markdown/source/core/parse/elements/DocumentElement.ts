@@ -6,7 +6,6 @@ import { ElementTransformer } from '@photon-rush/not-another-markdown/source/cor
 import { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
 import SectionElement from '@photon-rush/not-another-markdown/source/core/parse/elements/SectionElement';
-import Result from '@photon-rush/results/source/Result';
 
 export enum Section {
     CONTENT = '!content',
@@ -83,14 +82,12 @@ export default class DocumentElement extends ElementInstance {
         return input.peek().type === Token.START;
     }
 
-    static parse(input: TokenStream): Result<DocumentElement> {
-        const result = new Result<DocumentElement>(new DocumentElement());
+    static parse(input: TokenStream): DocumentElement {
+        const result = new DocumentElement();
 
         input.next();
 
         return result;
-
-
     }
 
     static get transformer() {

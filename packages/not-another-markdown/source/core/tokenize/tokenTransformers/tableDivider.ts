@@ -3,7 +3,6 @@ import CharacterStream, {
 } from '@photon-rush/not-another-markdown/source/core/tokenize/CharacterStream';
 import TokenInstance, { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenFactory from '@photon-rush/not-another-markdown/source/core/tokenize/TokenFactory';
-import Result from '@photon-rush/results/source/Result';
 
 export default {
     name: 'Table Divider Token Transformer',
@@ -13,13 +12,12 @@ export default {
         return input.peek() === '|' && input.peek(1) === '-';
     },
 
-    parse(input: CharacterStream, tokenFactory: TokenFactory): Result<Array<TokenInstance>> {
-        const result = new Result<Array<TokenInstance>>;
-
+    parse(input: CharacterStream, tokenFactory: TokenFactory): Array<TokenInstance> {
         input.consumeLine();
 
-        result.value = [tokenFactory.createToken(Token.TABLE_DIVIDER), tokenFactory.createToken(Token.LINE_BREAK)];
-
-        return result;
+        return [
+            tokenFactory.createToken(Token.TABLE_DIVIDER),
+            tokenFactory.createToken(Token.LINE_BREAK),
+        ];
     },
 };

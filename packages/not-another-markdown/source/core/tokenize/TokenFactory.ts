@@ -1,13 +1,13 @@
+import Status, { StatusType } from '@photon-rush/general/lib/Status';
+import StatusCollection from '@photon-rush/general/lib/StatusCollection';
 import CharacterStream from '@photon-rush/not-another-markdown/source/core/tokenize/CharacterStream';
 import TokenInstance, { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import { TokenTransformer } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenTransformer';
-import Result from '@photon-rush/results/source/Result';
-import VResult from '@photon-rush/results/source/VResult';
-
 
 export default class TokenFactory {
     private _input : CharacterStream;
-    private _output: VResult<Array<TokenInstance>>;
+    private _output: Array<TokenInstance>;
+    private _status: StatusCollection;
 
     private _transformers: Array<TokenTransformer>;
 
@@ -15,10 +15,11 @@ export default class TokenFactory {
 
 
     constructor(characterStream: CharacterStream, transformers: Array<TokenTransformer>) {
-        this._input = characterStream;
+        this._input  = characterStream;
+        this._status = new StatusCollection();
 
-        this._output = new VResult<Array<TokenInstance>>([]);
-        this._output.value.push(this.createToken(Token.START));
+        this._output = [];
+        this._output.push(this.createToken(Token.START));
 
         this._transformers = transformers;
     }
@@ -27,13 +28,13 @@ export default class TokenFactory {
 
     get notDone() { return this._input.notDone; }
 
-    get hasErrors() { return this._output.errorCount > 0; }
+    get hasErrors() { return this._status.type === StatusType.Error; }
 
-    get tokens(): ReadonlyArray<TokenInstance> { return this._output.value; } // TODO: Actual Readonly
+    get tokens(): ReadonlyArray<TokenInstance> { return this._output; } // TODO: Actual Readonly
     get lastToken(): TokenInstance {
         if (this._textAggregator) return this._textAggregator;
 
-        return this._output.value[this._output.value.length - 1];
+        return this._output[this._output.length - 1];
     }
 
     private _addText() {
@@ -69,7 +70,7 @@ export default class TokenFactory {
     }
 
     next() {
-        const result  = new Result<Array<TokenInstance>>();
+        // const result  = new Result<Array<TokenInstance>>();
         const options = this._transformers.filter(tk => tk.recognize(this._input, this)); //TODO: create actual readonly proxy
 
         if (options.length === 0) {
@@ -77,43 +78,37 @@ export default class TokenFactory {
         } else if (options.length > 1) {
             const tokens = options.map(t => t.name).join(', ');
 
-            result.add({
-                level : 'error',
-                text  : `${this._input.getSourceLocation()} Ambiguous tokens! "${tokens}"`,
-                source: 'tokenFactory',
-            });
+            this._status.add(Status.error({
+                message: `${this._input.getSourceLocation()} Ambiguous tokens! "${tokens}"`,
+                source : 'tokenFactory',
+            }));
         } else {
             if (this._textAggregator) {
-                this._output.value.push(this._textAggregator);
+                this._output.push(this._textAggregator);
 
                 this._textAggregator = null;
             }
 
-            const tokens = result.extract(options[0].parse(this._input, this));
-            this._output.extract(result);
+            const tokens = options[0].parse(this._input, this);
 
-            if (tokens) this._output.value.push(...tokens);
+            if (tokens) this._output.push(...tokens);
         }
 
         return this.notDone;
     }
 
-    nextPhrase(transformers: Array<TokenTransformer>): Result<Array<TokenInstance>> {
-        const result = new Result<Array<TokenInstance>>();
-
+    nextPhrase(transformers: Array<TokenTransformer>): Array<TokenInstance> | null {
         if (this._hasText()) {
-            result.add({
-                level : 'error',
-                text  : 'Cannot add a phrase element because there is text on the stack.',
-                source: 'TokenFactory',
-            });
+            this._status.add(Status.error({
+                message: 'Cannot add a phrase element because there is text on the stack.',
+                source : 'TokenFactory',
+            }));
 
-            return result;
+            return null;
         }
 
 
         const tokens: Array<TokenInstance> = [];
-        result.value                       = tokens;
 
         while (this.notDone) {
             if (this._input.peek() === '\n') break;
@@ -133,7 +128,7 @@ export default class TokenFactory {
                     this._textAggregator = null;
                 }
 
-                const nextTokens = result.extract(options[0].parse(this._input, this));
+                const nextTokens = options[0].parse(this._input, this);
 
                 if (nextTokens) tokens.push(...nextTokens);
             }
@@ -145,12 +140,12 @@ export default class TokenFactory {
             this._textAggregator = null;
         }
 
-        return result;
+        return tokens;
     }
 
     complete() {
         if (this._textAggregator) {
-            this._output.value.push(this._textAggregator);
+            this._output.push(this._textAggregator);
 
             this._textAggregator = null;
         }

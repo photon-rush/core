@@ -4,7 +4,6 @@ import CharacterStream, {
 
 import TokenFactory from '@photon-rush/not-another-markdown/source/core/tokenize/TokenFactory';
 import TokenInstance, { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
-import Result from '@photon-rush/results/source/Result';
 
 export default {
     name: 'Command Token Transformer',
@@ -13,9 +12,7 @@ export default {
         return input.peek() === '{';
     },
 
-    parse(input: CharacterStream, tokenFactory: TokenFactory): Result<Array<TokenInstance>> {
-        const result = new Result<Array<TokenInstance>>;
-
+    parse(input: CharacterStream, tokenFactory: TokenFactory): Array<TokenInstance> {
         input.next(); // Consume {
 
         const params: Array<TokenInstance> = [];
@@ -36,8 +33,9 @@ export default {
             }
         }
 
-        result.value = [nameToken, ...params];
-
-        return result;
+        return [
+            nameToken,
+            ...params,
+        ];
     },
 };

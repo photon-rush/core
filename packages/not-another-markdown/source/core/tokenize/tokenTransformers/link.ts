@@ -3,8 +3,6 @@ import CharacterStream, {
 } from '@photon-rush/not-another-markdown/source/core/tokenize/CharacterStream';
 import TokenInstance from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenFactory from '@photon-rush/not-another-markdown/source/core/tokenize/TokenFactory';
-import Result from '@photon-rush/results/source/Result';
-
 
 const BRACKET_OPEN  = '[';
 const BRACKET_CLOSE = ']';
@@ -17,30 +15,21 @@ const ANGLE_CLOSE = '>';
 
 const QUOTE = '"';
 
-function simpleLink(input: CharacterStream, tokenFactory: TokenFactory): Result<Array<TokenInstance>> {
-    const result = new Result<Array<TokenInstance>>;
-
-    let text        = '';
+function simpleLink(input: CharacterStream, tokenFactory: TokenFactory): Array<TokenInstance> {
+    const url       = input.consume(ANGLE_CLOSE).value;
+    const text      = url;
     const title     = '';
-    let url         = '';
     const reference = '';
 
-    url  = input.consume(ANGLE_CLOSE).value;
-    text = url;
-
-    result.value = tokenFactory.createCommand('link', [
+    return tokenFactory.createCommand('link', [
         text,
         title,
         url,
         reference,
     ]);
-
-    return result;
 }
 
-function normalLink(input: CharacterStream, tokenFactory: TokenFactory): Result<Array<TokenInstance>> {
-    const result = new Result<Array<TokenInstance>>;
-
+function normalLink(input: CharacterStream, tokenFactory: TokenFactory): Array<TokenInstance> {
     let text      = '';
     let title     = '';
     let url       = '';
@@ -65,14 +54,12 @@ function normalLink(input: CharacterStream, tokenFactory: TokenFactory): Result<
         console.log(`'${input.peek()}'`);
     }
 
-    result.value = tokenFactory.createCommand('link', [
+    return tokenFactory.createCommand('link', [
         text,
         title,
         url,
         reference,
     ]);
-
-    return result;
 }
 
 export default {
@@ -84,7 +71,7 @@ export default {
         return input.peek() === BRACKET_OPEN || input.peek() === ANGLE_OPEN;
     },
 
-    parse(input: CharacterStream, tokenFactory: TokenFactory): Result<Array<TokenInstance>> {
+    parse(input: CharacterStream, tokenFactory: TokenFactory): Array<TokenInstance> {
         const linkType = input.next(); // consume [
 
         if (linkType === ANGLE_OPEN) {

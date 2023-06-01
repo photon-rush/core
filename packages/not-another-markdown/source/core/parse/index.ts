@@ -6,12 +6,13 @@ import elementTransformers from '@photon-rush/not-another-markdown/source/core/p
 import printElements from '@photon-rush/not-another-markdown/source/core/parse/printElements';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
 import TokenInstance from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
-import Result from '@photon-rush/results/source/Result';
+import StatusCollection from '@photon-rush/general/lib/StatusCollection';
+import Status from '@photon-rush/general/lib/Status';
 
-export default function parse(tokens: Array<TokenInstance>, options: IParseOptions) {
-    const result = new Result<Array<ElementInstance>>();
-
+export default function parse(tokens: Array<TokenInstance>, options: IParseOptions, status: StatusCollection): Array<ElementInstance> {
     const tokenStream = new TokenStream(tokens);
+
+    let elements: Array<ElementInstance>;
 
     if (options.mode === ParseMode.DOCUMENT) {
         const documentFactory = new DocumentFactory(tokenStream, elementTransformers);
@@ -20,7 +21,7 @@ export default function parse(tokens: Array<TokenInstance>, options: IParseOptio
             documentFactory.next();
         }
 
-        result.value = [...documentFactory.elements];
+        elements = Array.from(documentFactory.elements);
     } else if (options.mode === ParseMode.INLINE) {
 
         const elementFactory = new ElementFactory(tokenStream, elementTransformers);
@@ -29,20 +30,21 @@ export default function parse(tokens: Array<TokenInstance>, options: IParseOptio
             elementFactory.next();
         }
 
-        result.value = [...elementFactory.elements];
+        elements = Array.from(elementFactory.elements);
     } else {
-        result.add({
-            level : 'error',
-            text  : `Unknown parse mode: ${options.mode}`,
-            source: 'parse',
-        });
+        status.add(Status.error({
+            message: `Unknown parse mode: ${options.mode}`,
+            source : 'parse',
+        }));
+
+        elements = [];
     }
 
     if (options.debug) {
         console.groupCollapsed(`Tokens: ${options.fileLocation}`);
-        console.log(printElements(result.value));
+        console.log(printElements(elements));
         console.groupEnd();
     }
 
-    return result;
+    return elements;
 }

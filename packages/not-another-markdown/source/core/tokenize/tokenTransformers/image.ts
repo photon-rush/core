@@ -4,8 +4,6 @@ import CharacterStream, {
 import TokenInstance from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenFactory from '@photon-rush/not-another-markdown/source/core/tokenize/TokenFactory';
 import link from '@photon-rush/not-another-markdown/source/core/tokenize/tokenTransformers/link';
-import Result from '@photon-rush/results/source/Result';
-
 
 export default {
     name: 'Image Token Transformer',
@@ -14,19 +12,15 @@ export default {
         return input.peek() === '!' && input.peek(1) === '[';
     },
 
-    parse(input: CharacterStream, tokenFactory: TokenFactory): Result<Array<TokenInstance>> {
-        const result = new Result<Array<TokenInstance>>;
-
+    parse(input: CharacterStream, tokenFactory: TokenFactory): Array<TokenInstance> {
         input.next(); // Consume !
 
-        const tokens = result.extract(link.parse(input, tokenFactory));
+        const tokens = link.parse(input, tokenFactory);
 
-        if (!tokens) return result;
+        if (!tokens) return [];
 
         tokens[0].value = 'image';
 
-        result.value = tokens;
-
-        return result;
+        return tokens;
     },
 };

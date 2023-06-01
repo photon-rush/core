@@ -3,7 +3,6 @@ import CharacterStream, {
 } from '@photon-rush/not-another-markdown/source/core/tokenize/CharacterStream';
 import TokenInstance, { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenFactory from '@photon-rush/not-another-markdown/source/core/tokenize/TokenFactory';
-import Result from '@photon-rush/results/source/Result';
 
 export default {
     name: 'Horizontal Rule Token Transformer',
@@ -18,15 +17,14 @@ export default {
         return false;
     },
 
-    parse(input: CharacterStream, tokenFactory: TokenFactory): Result<Array<TokenInstance>> {
-        const result = new Result<Array<TokenInstance>>;
-
+    parse(input: CharacterStream, tokenFactory: TokenFactory): Array<TokenInstance> {
         const token = tokenFactory.createToken(Token.HORIZONTAL_RULE);
 
         token.value = input.consumeLine();
 
-        result.value = [token, tokenFactory.createToken(Token.LINE_BREAK)];
-
-        return result;
+        return [
+            token,
+            tokenFactory.createToken(Token.LINE_BREAK),
+        ];
     },
 };

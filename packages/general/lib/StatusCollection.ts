@@ -18,6 +18,14 @@ export default class StatusCollection {
     get type(): StatusType { return this.#type; }
     get length(): number { return this.#statuses.length; }
 
+    countErrors(): number {
+        return this.#statuses.filter(status => status.type === StatusType.Error).length;
+    }
+
+    countWarnings(): number {
+        return this.#statuses.filter(status => status.type === StatusType.Warning).length;
+    }
+
     add(status: Status | Partial<IStatus>) {
         const newStatus = new Status(status);
         this.#statuses.push(newStatus);

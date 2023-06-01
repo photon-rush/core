@@ -8,7 +8,6 @@ import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/Tok
 import parseText from '@photon-rush/not-another-markdown/source/core/parse/elementTransformers/parseText';
 import TableCellElement from '@photon-rush/not-another-markdown/source/core/parse/elements/TableCellElement';
 import TableRowElement from '@photon-rush/not-another-markdown/source/core/parse/elements/TableRowElement';
-import Result from '@photon-rush/results/source/Result';
 
 export default class TableElement extends ElementInstance {
     constructor() {
@@ -23,9 +22,8 @@ export default class TableElement extends ElementInstance {
         return input.peek().type === Token.TABLE_ROW;
     }
 
-    static parse(input: TokenStream): Result<TableElement> {
-        const result = new Result<TableElement>();
-        const table  = new TableElement();
+    static parse(input: TokenStream): TableElement {
+        const table = new TableElement();
 
         while (input.peek().type === Token.TABLE_ROW) {
             input.next(); //tableRow
@@ -37,7 +35,7 @@ export default class TableElement extends ElementInstance {
                 const cell = new TableCellElement();
                 row.add(cell);
 
-                result.extract(parseText(input, cell));
+                parseText(input, cell);
             }
 
             input.consumeLineBreaks();
@@ -48,9 +46,7 @@ export default class TableElement extends ElementInstance {
             }
         }
 
-        result.value = table;
-
-        return result;
+        return table;
     }
 
     static get transformer() {

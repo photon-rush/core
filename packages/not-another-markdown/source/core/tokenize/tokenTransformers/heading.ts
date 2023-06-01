@@ -3,7 +3,6 @@ import CharacterStream, {
 } from '@photon-rush/not-another-markdown/source/core/tokenize/CharacterStream';
 import TokenFactory from '@photon-rush/not-another-markdown/source/core/tokenize/TokenFactory';
 import TokenInstance, { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
-import Result from '@photon-rush/results/source/Result';
 
 export default {
     name: 'Heading Token Transformer',
@@ -12,9 +11,7 @@ export default {
         return tokenFactory.lastToken.beginning && input.peek() === '#';
     },
 
-    parse(input: CharacterStream, tokenFactory: TokenFactory): Result<Array<TokenInstance>> {
-        const result = new Result<Array<TokenInstance>>;
-
+    parse(input: CharacterStream, tokenFactory: TokenFactory): Array<TokenInstance> {
         let level = 1;
         input.next();
 
@@ -51,11 +48,9 @@ export default {
             break;
         }
 
-        result.value = [
+        return [
             tokenFactory.createToken(type, input.consumeLine()),
             tokenFactory.createToken(Token.LINE_BREAK),
         ];
-
-        return result;
     },
 };

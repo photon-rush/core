@@ -5,7 +5,6 @@ import ElementInstance, {
 import { ElementTransformer } from '@photon-rush/not-another-markdown/source/core/parse/ElementTransformer';
 import { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
-import Result from '@photon-rush/results/source/Result';
 
 export default class CodeElement extends ElementInstance {
     public text    : string;
@@ -29,9 +28,7 @@ export default class CodeElement extends ElementInstance {
         return input.peek().type === Token.CODE_START;
     }
 
-    static parse(input: TokenStream): Result<CodeElement> {
-        const result = new Result<CodeElement>();
-
+    static parse(input: TokenStream): CodeElement {
         const start = input.next();
 
         let text = '';
@@ -40,9 +37,7 @@ export default class CodeElement extends ElementInstance {
             text = `${text}\n${input.next().value}`;
         }
 
-        result.value = new CodeElement(start.value, text);
-
-        return result;
+        return new CodeElement(start.value, text);
     }
 
     static get transformer() {

@@ -6,7 +6,6 @@ import { ElementTransformer } from '@photon-rush/not-another-markdown/source/cor
 import { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
 import parseList from '@photon-rush/not-another-markdown/source/core/parse/elementTransformers/parseList';
-import Result from '@photon-rush/results/source/Result';
 
 export default class UnorderedListElement extends ElementInstance {
 
@@ -22,7 +21,7 @@ export default class UnorderedListElement extends ElementInstance {
         return input.peek().type === Token.UNORDERED_LIST;
     }
 
-    static parse(input: TokenStream): Result<UnorderedListElement> {
+    static parse(input: TokenStream): UnorderedListElement {
         return parseList(input);
     }
 

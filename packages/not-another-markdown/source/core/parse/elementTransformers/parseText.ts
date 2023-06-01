@@ -3,7 +3,6 @@ import { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/To
 import TokenStream from '@photon-rush/not-another-markdown/source/core/parse/TokenStream';
 import CommandElement from '@photon-rush/not-another-markdown/source/core/parse/elements/CommandElement';
 import TextElement from '@photon-rush/not-another-markdown/source/core/parse/elements/TextElement';
-import Result from '@photon-rush/results/source/Result';
 
 const textTerminals = new Set<Token>([
     Token.LINE_BREAK,
@@ -12,9 +11,7 @@ const textTerminals = new Set<Token>([
     Token.NONE,
 ]);
 
-export default function parseText(input: TokenStream, parent: ElementInstance): Result<ElementInstance> {
-    const result = new Result<ElementInstance>(parent);
-
+export default function parseText(input: TokenStream, parent: ElementInstance): ElementInstance {
     let emphasis = false;
     let strong   = false;
 
@@ -28,9 +25,7 @@ export default function parseText(input: TokenStream, parent: ElementInstance): 
         } else if (next.type === Token.STRONG) {
             strong = !strong;
         } else if (next.type === Token.COMMAND_NAME) {
-            const command = result.extract(CommandElement.parse(input, next.value));
-
-            if (command) parent.add(command);
+            parent.add(CommandElement.parse(input, next.value));
         } else if (next.type === Token.PRE) {
             parent.add(new TextElement(next.value, false, false, true));
         } else if (next.type === Token.NONE) {
@@ -38,5 +33,5 @@ export default function parseText(input: TokenStream, parent: ElementInstance): 
         }
     }
 
-    return result;
+    return parent;
 }

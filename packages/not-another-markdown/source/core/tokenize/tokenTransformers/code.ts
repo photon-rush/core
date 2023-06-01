@@ -4,7 +4,6 @@ import CharacterStream, {
 
 import TokenFactory from '@photon-rush/not-another-markdown/source/core/tokenize/TokenFactory';
 import TokenInstance, { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
-import Result from '@photon-rush/results/source/Result';
 
 export default {
     name: 'Code Token Transformer',
@@ -15,9 +14,7 @@ export default {
         return input.match('```');
     },
 
-    parse(input: CharacterStream, tokenFactory: TokenFactory): Result<Array<TokenInstance>> {
-        const result = new Result<Array<TokenInstance>>;
-
+    parse(input: CharacterStream, tokenFactory: TokenFactory): Array<TokenInstance> {
         input.next(); // Consume `
         input.next(); // Consume `
         input.next(); // Consume `
@@ -39,8 +36,10 @@ export default {
             lines.push(line);
         }
 
-        result.value = [token, ...lines, tokenFactory.createToken(Token.LINE_BREAK)];
-
-        return result;
+        return [
+            token,
+            ...lines,
+            tokenFactory.createToken(Token.LINE_BREAK),
+        ];
     },
 };

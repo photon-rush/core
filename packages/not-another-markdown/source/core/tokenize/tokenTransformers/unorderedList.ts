@@ -5,13 +5,11 @@ import CharacterStream, {
 import TokenInstance, { Token } from '@photon-rush/not-another-markdown/source/core/tokenize/TokenInstance';
 import TokenFactory from '@photon-rush/not-another-markdown/source/core/tokenize/TokenFactory';
 
-
-const terminals: ReadonlySet<string> = new Set(['*', '-', '+']);
-
 import {
     unorderedListTransformers,
 } from '@photon-rush/not-another-markdown/source/core/tokenize/tokenTransformers/index';
-import Result from '@photon-rush/results/source/Result';
+
+const terminals: ReadonlySet<string> = new Set(['*', '-', '+']);
 
 export default {
     name: 'Ordered List Token Transformer',
@@ -37,21 +35,17 @@ export default {
         return isWhitespace(input.peek(offset + 1));
     },
 
-    parse(input: CharacterStream, tokenFactory: TokenFactory): Result<Array<TokenInstance>> {
-        const result = new Result<Array<TokenInstance>>;
-
+    parse(input: CharacterStream, tokenFactory: TokenFactory): Array<TokenInstance> {
         const indent = input.consumeUntil(['*', '-', '+']);
         input.next(); //bullet
         input.next(); //space
 
-        const nextPhrase = result.extract(tokenFactory.nextPhrase(unorderedListTransformers));
+        const nextPhrase = tokenFactory.nextPhrase(unorderedListTransformers);
 
-        result.value = [
+        return [
             tokenFactory.createToken(Token.UNORDERED_LIST),
             tokenFactory.createToken(Token.LIST_INDENT, indent),
             ...(nextPhrase || []),
         ];
-
-        return result;
     },
 };
