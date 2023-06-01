@@ -1,3 +1,4 @@
+import pathSplit from '@photon-rush/general/lib/node/pathSplit';
 import { resolve } from 'path';
 
 export const scope = '@photon-rush';
@@ -25,15 +26,4 @@ export default function sa(p: string): string {
     if (data.length === 2) return packageLocation;
 
     return resolve(packageLocation, data.slice(2).join('/'));
-}
-
-function pathSplit(path: string) {
-    const first = path.split('/');
-
-    const result: Array<string> = [];
-    for (let j = 0; j < first.length; j++) {
-        result.push(...first[j].split('\\'));
-    }
-
-    return result;
 }

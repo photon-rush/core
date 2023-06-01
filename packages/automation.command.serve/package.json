@@ -1,0 +1,13 @@
+{
+    "name": "@photon-rush/automation.command.serve",
+    "description": "Web server",
+    "keywords": [],
+    "license": "GPL-3.0-or-later",
+    "version": "1.0.0",
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/photon-rush/core.git",
+        "directory": "packages/automation.command.serve"
+    }
+}
