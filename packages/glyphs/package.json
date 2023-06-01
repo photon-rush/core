@@ -1,0 +1,19 @@
+{
+    "name": "@photon-rush/glyphs",
+    "description": "Loads a font file and outputs various tables containing the unicode characters that it supports.",
+    "keywords": [],
+    "license": "GPL-3.0-or-later",
+    "version": "1.0.0",
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/photon-rush/open.git",
+        "directory": "packages/glyphs"
+    },
+    "config": {
+        "node": true
+    },
+    "scripts": {
+        "start": "ts-node source/index.ts"
+    }
+}

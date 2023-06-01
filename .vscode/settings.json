@@ -1,0 +1,34 @@
+{
+    "window.title": "${dirty}${rootName}/${activeEditorMedium} ",
+    "cSpell.enableFiletypes": [
+        "*"
+    ],
+    "cSpell.words": [
+        "dotfiles",
+        "Elementizer",
+        "esbuild",
+        "fira",
+        "GNDN",
+        "outdir",
+        "playfield",
+        "subline",
+        "transclude",
+        "unstarted",
+        "unversioned"
+    ],
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "typescript.preferences.importModuleSpecifierEnding": "minimal",
+    "search.exclude": {
+        "package-lock.json": true
+    },
+    "eslint.format.enable": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "files.exclude": {
+        "-logs": true,
+        "**/*/-logs": true,
+        "-npm-logs": true,
+        "**/*/-npm-logs": true,
+    }
+}

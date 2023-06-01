@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "noEmit": true,
+        "moduleResolution": "node",
+        "module": "es2022",
+        "target": "es2022",
+        "strict": true,
+        "jsx": "react",
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "paths": {
+            "@photon-rush/*": [
+                "./packages/*",
+            ],
+        }
+    },
+    "ts-node": {
+        "compilerOptions": {
+            "module": "commonjs",
+        },
+    },
+}

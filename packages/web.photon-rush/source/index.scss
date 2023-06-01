@@ -1,0 +1,95 @@
+$fa-font-path: "@photon-rush/web.resources/fa/webfonts";
+
+@import '@photon-rush/web.resources/source/fonts.scss';
+@import '@photon-rush/web.resources/source/reset.scss';
+//@import '@photon-rush/web.resources/fa/scss/fontawesome.scss';
+//@import '@photon-rush/web.resources/fa/scss/sharp-regular.scss';
+
+
+body {
+    font-family: 'Fira Code VF', monospace;
+    background-color: black;
+    color: #CDCDCD;
+    font-size: 24px;
+    padding-top: .5em;
+}
+
+
+.sr-only:not(:focus):not(:active) {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.container {
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+    body {
+        padding: .5em;
+    }
+}
+
+header {
+    padding-bottom: 2em;
+}
+
+footer {
+    font-size: .5em;
+    text-align: center;
+}
+
+.contact {
+    text-align: center;
+    padding-bottom: 2em;
+
+    a {
+        color: black;
+        text-decoration: none;
+        padding: .5em 1em;
+        border: thin solid white;
+        margin-bottom: 1em;
+        background-color: lightgray;
+    }
+
+    a:hover {
+        border: solid thick #d92f27;
+    }
+
+    a:active {
+        border: inset thick #d92f27;
+    }
+}
+
+h2 {
+    padding-bottom: 1em;
+}
+
+h3 {
+    border-bottom: solid thin white;
+    margin-bottom: .5em;
+}
+
+p {
+    padding-bottom: 1em;
+}
+
+.features {
+    padding-left: 4em;
+
+
+    li {
+        padding-bottom: .5em;
+    }
+}
+
+.coming-soon {
+    padding-top: 1em;
+    font-size: 1.5em;
+}

@@ -1,0 +1,12 @@
+{
+    "name": "@photon-rush/general",
+    "version": "1.0.0",
+    "description": "General functions and stuff, also some things",
+    "private": true,
+    "license": "GPL-3.0-or-later",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/photon-rush/core.git",
+        "directory": "packages/general"
+    }
+}

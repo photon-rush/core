@@ -1,0 +1,41 @@
+
+
+![Logo Image](../../../logo.svg "Logo")
+![link w/ reference][ref]
+
+! asdf
+
+Here is [A link](./test.nam). It goes places!?
+
+Here is [A link with a title](./test.nam "Link with a title"). It goes places!?
+
+Here is a reference link [A link][label]
+
+<https://google.com>
+
+[label]: ./heading.nam "title text"
+
+********************************************************************************
+
+This is a command {name: param can have spaces, param1, you can escape \, (commas) or \} (braces),param3}
+
+You can put commands on multiple lines like this
+{
+    command:
+    beans,
+    stuff,
+    argyle
+}
+
+** Not Strong**
+
+__Not Another Markdown__ files are like markdown, but they have a number of differences that make them safer, easier to parse. They also have a number of additional features that are commonly requested by developers, like definition lists and metadata.
+
+The **biggest** difference between NAM and Markdown is that NAM does not support parsing arbitrary HTML elements. These are _always_ treated as plain text must be escaped when rendering NAM to HTML. There are a few other things that have been removed from markdown
+
+NAM files also allow you to do some preprocessing, by supporting specific language for file importing.
+
+Test*d*
+
+[hello\]](test.nam)
+NAM isn't a strict superset of Markdown, but many, and perhaps most Markdown files you encounter in the wild can be parsed as NAM.

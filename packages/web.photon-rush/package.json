@@ -1,0 +1,20 @@
+{
+    "name": "@photon-rush/web.photon-rush",
+    "description": "https://photon-rush.com Website",
+    "keywords": [],
+    "license": "GPL-3.0-or-later",
+    "version": "1.0.0",
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/photon-rush/open.git",
+        "directory": "packages/web.photon-rush"
+    },
+    "config": {
+        "web": true,
+        "template": [
+            "pages/index.html",
+            "pages/bench.html"
+        ]
+    }
+}

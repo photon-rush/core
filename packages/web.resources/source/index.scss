@@ -1,0 +1,22 @@
+@import '@photon-rush/web.resources/source/fonts.scss';
+@import '@photon-rush/web.resources/source/reset.scss';
+
+$baseFontSize: 24px;
+
+body {
+    background-color: #3F3F3F;
+    color: #DCDCDC;
+
+    font-family: 'Fira Code VF', monospace;
+    font-size: $baseFontSize;
+}
+
+.sr-only:not(:focus):not(:active) {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}

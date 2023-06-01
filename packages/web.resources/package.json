@@ -1,0 +1,20 @@
+{
+    "name": "@photon-rush/web.resources",
+    "description": "Basic Styles",
+    "keywords": [
+        "styles",
+        "fonts",
+        "colors"
+    ],
+    "license": "GPL-3.0-or-later",
+    "version": "1.0.0",
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/photon-rush/open.git",
+        "directory": "packages/web.resources"
+    },
+    "config": {
+        "skip": true
+    }
+}

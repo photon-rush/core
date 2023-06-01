@@ -1,0 +1,257 @@
+    d * dasdf*
+
+
+
+# NAM Test file
+
+Not Another Markdown files are like markdown, but they have a number of differences that make them safer, easier to parse. They also have a number of additional features that are commonly requested by developers, like definition lists and metadata.
+
+The biggest difference between NAM and Markdown is that NAM does not support parsing arbitrary HTML elements. These are always treated as plain text must be escaped when rendering NAM to HTML. There are a few other things that have been removed from markdown
+
+NAM files also allow you to do some preprocessing, by supporting specific language for file importing.
+
+NAM isn't a strict superset of Markdown, but many, and perhaps most Markdown files you encounter in the wild can be parsed as NAM.
+
+## Additions to Markdown
+- ✔ Supports file metadata
+- ✔ Supports static file imports
+- ✔ Supports breaking documents in to sections
+- ✔ Supports tables (most people assume markdown supports this, but it doesn't out of the box)
+- ✔ Supports definition lists
+- ✔ Supports callouts
+- ✔ Supports automatic table of contents
+- ✔ Supports task lists
+- ✔ Supports text inputs
+- ✔ Supports button inputs
+- ✔ Supports radio inputs
+- ✔ Supports checkbox inputs
+- ✔ Supports custom text effects
+- ✔ Supports custom renderer/parser commands
+- ✔ Supports iframes
+
+## Deletions from Markdown
+- ❌ No HTML Tags (angle brackets must be automatically escaped when rendered in HTML)
+- ❌ No "Setext" underlined headers.
+- ❌ No "atx" closing headers.
+- ❌ No indented code blocks
+- ❌ Some whitespace and line break differences
+
+## Other Requirements (Not in Markdown)
+- ⚠ All documents MUST be encoded using UTF-8
+- ⚠ All documents coming from JavaScript strings MUST be "well formed"
+- ⚠ All line endings are defined as LF (U+000A)
+- ⚠ All path separators are defined as SOLIDUS (U+002F) (AKA foreword slash)
+
+## Data Structure
+
+Unlike Markdown, NAM is output to a specific, static data structure.  Once fully created, the data structure should be frozen in a read only state. The data structure is intended to be easily serialized to JSON, YAML and other data interchange formats.
+
+
+The structure is represented below in TypeScript:
+
+```typescript
+type AnotherElementType = 'unknown'
+    | 'document'
+    | 'section'
+    | 'heading'
+    | 'list'
+    | 'listItem'
+    | 'table'
+    | 'tableRow'
+    | 'blockquote'
+    | 'code'
+    | 'horizontalRule'
+    | 'import'
+    | 'frame'
+    | 'input'
+    | 'emphasis'
+    | 'strong'
+    | 'link'
+    | 'image'
+    | 'paragraph'
+    ;
+
+type AnotherContentValue = string | number | boolean;
+
+type AnotherContent = Record<string, AnotherContentValue | Array<AnotherContentValue> | Record<string, AnotherContentValue>>;
+
+interface AnotherElement {
+    name: AnotherElementType,
+    id: string,
+    content: AnotherContent;
+    children: Array<AnotherElement>;
+}
+```
+
+
+
+
+Individual elements will often define additional constraints on the data structure including the actual fields present in the content object or specific entries in the children array.
+
+## Parsing Notes
+
+- Use the backslash character as an escape for special characters. Wether or not a character is special depends on the context.
+
+## DOCUMENT
+
+There are three kinds of elements in a NAM document: BLOCK, PHRASE, SECTION, and DOCUMENT
+
+DOCUMENT is the top level, and there can be only a single document.
+
+Each DOCUMENT is composed of SECTIONs. There can only be one of each kind of section in a DOCUMENT. DOCUMENTs always have every kind of SECTION (although a section may be empty). In the data structure, sections appear in the same order, although they can be defined in the DOCUMENT text in any order.
+
+### Sections
+
+There are four kinds of SECTIONs, each document always has one of each section, although it may be empty.
+
+1. The __CONTENT__ section contains NAM. It is the main content for the document.
+1. The __REFERENCE__ Section contains only NAM reference definitions. It is a handy place to store citations or link references.
+1. The __META__ Section contains only an NAM definition list of metadata key/values. Used to store metadata about a document that can be used by renderers or interpreters.
+1. The __NOTE__ Section contains only an NAM paragraphs. Not meant to be displayed, this is for authors to put notes or comments.
+
+
+__This is a _bold_ sentence__
+__This is a sentence__
+
+
+### Heading
+
+### Lists
+
+- A normal List
+    - Milk
+    - Eggs
+    - Butter
+- Something not from a cow
+    1. Widgets
+    - Sprockets
+    - Beans
+
++ Another list
+- This one combines bullets
+* Hopefully thats ok?
+
+
+1. An ordered list
+1. Here is is
+1. Item three
+
+
+a. alpha
+b. beta
+c. charlie
+
+
+***Beans for breakfast**
+
+
+Here's a paragraph
+
+### Table
+
+
+| Column 1 | Column 2 | Something Else | Another Header
+|----------|----------|----------------|----------------------------------------
+| Red      | Blue     | Green          | Cyan
+| Row 2    | Color    | Weight         | Rain
+| A Witches Brew | Things that end in ounge | Sometimes | Test Data
+
+### Callout
+
+|>------------------------------------------------------------------------------
+|> This is a callout
+|> Its  a very important thing?
+|> These work just like blockquotes, except they can't be nested
+|>------------------------------------------------------------------------------
+this is part of the callout too, but looks funny like this
+
+
+### Blockquote
+
+> Block Quotes are for quoting things. Actually,
+> any block level elements can be nested inside a blockquote (including other
+> block quotes)
+Putting arrows after _every_ line isn't required, but its still a good idea for
+clarities sake.
+> ## This is another header in a blockquote
+> - List item 1
+>      - list item A
+>      - list item B
+> - List item 2
+
+### Inputs, Commands and IFrames
+
+All inputs must be on their own line.
+
+?{text:id,label...}
+
+?{button:id,label...}
+
+?{radio:id,value,label...}
+
+?{check:id,value,label...}
+
+?{form:id,method,action}
+
+the form input will group all subsequent inputs together in to one form, it will stop after reaching a non-input or non-text or non-break token.
+
+### Paragraphs
+
+### Code
+
+### Horizontal Rules
+
+Any repeationg sequence of these characters with a length >= 3
+
+---
+
+***
+
+===
+
+### IFrames
+
+Iframes can be added, but there are significant security restrictions placed on them basically, no communication is allowed between the parent document and the frame.
+
+Like inputs, they must also be on their own line.
+
+!{frame:id,url,height}
+
+### Includes
+
+You can include other files using `@include <file_path>`
+
+includes must be on their own line.
+
+The inclusion happens at parse time, so you need to have it ready to go
+
+Here's an example:
+@include ./list.nam
+
+Also note: the CONTENT section from an included document is atomically added to the data structure for the parent's CONTENT section. other sections are available somewhere?
+
+
+## Todo List
+
+- [ ] This is a todo list
+- [x] Item Completed!
+    - Scrub the decks
+    - Attach the mainsail
+    - Detatch the mainsail
+    - Garbage collect the mainsail
+
+## Definition list
+
+- Rabbit: Rabbits ofter follow trails, just like programmers.
+- Soup: There is no soup, even if you go to the soup store, its mostly nothing
+-   Trim: Neatly aligned definitions.
+
+
+
+--------------------------------------------------------------------------------
+# META
+--------------------------------------------------------------------------------
+
+- Title: Not Another Markup Language Specification
+- Author: Aaron C Willows
+- Version: 1

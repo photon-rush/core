@@ -1,0 +1,10 @@
+
+
+
+Here is [A link](./test.nam). It goes places!?
+
+Here is [A link with a title](./test.nam "Link with a title"). It goes places!?
+
+Here is a reference link [A link][label]
+
+A simple link: <https://google.com>

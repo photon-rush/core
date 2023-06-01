@@ -1,0 +1,23 @@
+{
+    "name": "@photon-rush/not-another-markdown",
+    "description": "Parses markdown-like text into rendering instructions",
+    "keywords": [
+        "parser",
+        "markdown",
+        "nam"
+    ],
+    "license": "GPL-3.0-or-later",
+    "version": "1.0.0",
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/photon-rush/open.git",
+        "directory": "packages/not-another-markdown"
+    },
+    "scripts": {
+        "start": "ts-node source/index.ts"
+    },
+    "config": {
+        "node": true
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "name": "@photon-rush/sg.core",
+    "version": "1.0.0",
+    "description": "Core",
+    "keywords": [],
+    "private": true,
+    "license": "GPL-3.0-or-later",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/photon-rush/open.git",
+        "directory": "packages/sg.core"
+    }
+}

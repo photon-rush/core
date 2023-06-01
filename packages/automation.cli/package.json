@@ -1,0 +1,12 @@
+{
+    "name": "@photon-rush/automation.cli",
+    "version": "1.0.0",
+    "description": "Runs commands on the repository",
+    "private": true,
+    "license": "GPL-3.0-or-later",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/photon-rush/core.git",
+        "directory": "packages/automation.command.cli"
+    }
+}

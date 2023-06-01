@@ -1,0 +1,12 @@
+{
+    "name": "@photon-rush/sg.game",
+    "version": "1.0.0",
+    "description": "Solar Genesis - Game",
+    "private": true,
+    "license": "GPL-3.0-or-later",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/photon-rush/core.git",
+        "directory": "packages/sg.game"
+    }
+}

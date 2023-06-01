@@ -1,0 +1,51 @@
+$fade-delay: 2s;
+
+@keyframes title-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 100%;
+    }
+}
+
+@keyframes title-fade-out {
+    from {
+        opacity: 100%;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.title-page {
+    text-align: center;
+    animation: $fade-delay ease-in $fade-delay * 5 title-fade-out forwards;
+
+
+    .photon-logo {
+        opacity: 0;
+        width: 33%;
+        min-width: 512px;
+        max-width: 1024px;
+        margin: 0 auto;
+        animation: $fade-delay ease-in $fade-delay * 0 title-fade-in forwards;
+    }
+
+    p {
+        opacity: 0;
+        padding-top: 4em;
+        padding-bottom: 4em;
+        animation: $fade-delay ease-in $fade-delay * 1 title-fade-in forwards;
+    }
+
+    h1 {
+        opacity: 0;
+        font-size: 3em;
+        animation: $fade-delay ease-in $fade-delay * 2 title-fade-in forwards;
+    }
+
+
+}

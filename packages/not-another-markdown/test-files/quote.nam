@@ -1,0 +1,23 @@
+> # Adventures in Block Quoting
+> Block Quotes are for quoting things. Actually,
+> any block level elements can be nested inside a blockquote (including other
+> block quotes) Unlike markdown. putting arrows after _every_ line is required.
+See this is not quoted
+> ## This is another header in a blockquote
+> - List item 1
+>      - list item A
+>      - list item B
+> - List item 2
+> ------------------------------------------------------------------------------
+> This is a _BLOCK_ __QUOTE__
+>
+> ![Logo Image](../../../logo.svg "Logo")
+>
+> <https://google.com> (A link)
+
+
+|>------------------------------------------------------------------------------
+|> This is a callout
+|> Its  a very important thing?
+|> These work just like blockquotes, except they can't be nested
+|>------------------------------------------------------------------------------

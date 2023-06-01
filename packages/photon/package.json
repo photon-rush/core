@@ -1,0 +1,15 @@
+{
+    "name": "@photon-rush/photon",
+    "version": "1.0.0",
+    "description": "Photon PL",
+    "private": true,
+    "license": "GPL-3.0-or-later",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/photon-rush/core.git",
+        "directory": "packages/photon"
+    },
+    "config": {
+        "skip": true
+    }
+}

@@ -1,0 +1,189 @@
+@import '@photon-rush/web.resources/source/index.scss';
+
+$baseFontSize: 24px;
+
+body {
+    font-family: 'Fira Code VF', monospace;
+    font-size: $baseFontSize;
+
+    color: white;
+    background-color: black;
+
+    text-shadow: 1px 1px 2px hsla(350, 100%, 88%, 0.75)
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+pre,
+.pre {
+    font-family: 'Fira Code VF', monospace;
+    font-size: $baseFontSize;
+    white-space: pre;
+    letter-spacing: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-size: $baseFontSize;
+}
+
+h3 {
+    text-decoration: underline;
+    font-size: 2em;
+
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-height: 100vh;
+    padding: 1em;
+    overflow: hidden;
+}
+
+.content {
+    flex-grow: 1;
+    overflow: auto;
+    overflow-x: hidden;
+    scrollbar-color: white black;
+    scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: black;
+}
+
+::-webkit-scrollbar-thumb {
+    background: white;
+}
+
+.valign {
+    align-self: center;
+}
+
+.spad {
+    padding-top: .5em;
+    padding-bottom: .5em;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.bthin {
+    border: solid 2px white;
+}
+
+.btr {
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+}
+
+
+.row {
+    display: flex;
+
+}
+
+.advisor {
+    margin-top: -2px;
+    margin-right: -2px;
+}
+
+.placeholder {
+    flex-grow: 1;
+}
+
+.smoll {
+    font-size: .75em;
+}
+
+table.defs {
+
+    td,
+    th {
+        padding-bottom: .5em;
+    }
+
+    th {
+        text-align: right;
+    }
+
+    td {
+        padding-left: .5em;
+    }
+}
+
+
+h2 {
+
+    margin-bottom: -2px;
+    width: 33%;
+    max-width: 20em;
+}
+
+ol.button-list {
+    list-style: none;
+
+    li {
+        display: inline-block;
+    }
+
+    li:after {
+        content: ' ∙ ';
+        white-space: pre;
+    }
+
+    li:last-of-type:after {
+        content: '';
+    }
+}
+
+
+a,
+button {
+    all: unset;
+    text-decoration: underline;
+    color: lightblue;
+    cursor: pointer;
+}
+
+
+@keyframes animateBg {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 100% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+
+.logo {
+    color: #E50000;
+    background: radial-gradient(#E50000, #FF8D00, #FFEE00, #028121, #004CFF, #770088);
+
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animateBg 12s infinite ease-in-out;
+    text-shadow: none;
+
+}
+
+.photon-logo {
+    width: 300px;
+}

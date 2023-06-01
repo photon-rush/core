@@ -1,0 +1,15 @@
+{
+    "name": "@photon-rush/automation.environment",
+    "version": "1.0.0",
+    "description": "Data structures and functions for dealing with the monorepo",
+    "private": true,
+    "license": "GPL-3.0-or-later",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/photon-rush/core.git",
+        "directory": "packages/automation.environment"
+    },
+    "scripts": {
+        "start": "ts-node index.ts"
+    }
+}
