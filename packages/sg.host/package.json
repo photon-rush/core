@@ -9,7 +9,7 @@
     "private": true,
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/photon-rush/open.git",
+        "url": "git+https://github.com/photon-rush/core.git",
         "directory": "packages/sg.host"
     },
     "config": {
