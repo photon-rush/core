@@ -1,4 +1,4 @@
-import { sa } from '@photon-rush/node-util/source/path';
+import sa from '@photon-rush/general/lib/node/sa';
 import { app, BrowserWindow } from 'electron';
 
 const gameLocation    = sa('@photon-rush/sg.game/-out/index.html');
@@ -10,7 +10,6 @@ async function main() {
     await app.whenReady();
     //app.applicationMenu = null;
     app.name = 'Solar Genesis';
-
 
     const window = new BrowserWindow({
         width         : 1366,

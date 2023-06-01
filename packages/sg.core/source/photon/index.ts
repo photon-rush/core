@@ -1,10 +1,9 @@
-import { PackageTag } from '@photon-rush/automation.core/source/environment/PackageInformation';
-
 import AssetManager from '@photon-rush/sg.core/source/photon/AssetManager';
 import postInitialize from '@photon-rush/sg.core/source/photon/postInitialize';
 import { createDefault, IPhotonBootstrap } from '@photon-rush/sg.core/source/photon/IPhotonBootstrap';
 import ObjectManager from '@photon-rush/sg.core/source/photon/ObjectManager';
 import IPhotonError from '@photon-rush/sg.core/source/photon/IPhotonError';
+import { ITag } from '@photon-rush/automation.environment/lib/packages/createTag';
 
 export enum EngineState {
     ERROR       = 'error',
@@ -143,7 +142,7 @@ export class PhotonEngine {
         return this.#instance!;
     }
 
-    static initialize(tag: PackageTag, bootstrap?: Partial<IPhotonBootstrap>) {
+    static initialize(tag: ITag, bootstrap?: Partial<IPhotonBootstrap>) {
         const configuration = createDefault(tag, bootstrap);
 
         if (!this.#instance) {
@@ -156,7 +155,7 @@ export class PhotonEngine {
     }
 }
 
-export function initializeEngine(tag: PackageTag, bootstrap?: Partial<IPhotonBootstrap>) {
+export function initializeEngine(tag: ITag, bootstrap?: Partial<IPhotonBootstrap>) {
     PhotonEngine.initialize(tag, bootstrap);
 }
 

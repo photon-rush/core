@@ -1,4 +1,5 @@
-import { BuildMode, OperatingSystem, Platform, Storefront } from '@photon-rush/automation.core/source/constants';
+import { BuildMode } from '@photon-rush/automation.environment/lib/createContext';
+import { OperatingSystem, Platform, Storefront } from '@photon-rush/general/lib/platform';
 import Counter from '@photon-rush/sg.core/source/objects/Counter';
 import Flags, { IFlags } from '@photon-rush/sg.core/source/objects/Flags';
 import HexPoint from '@photon-rush/sg.core/source/objects/HexPoint';
@@ -9,10 +10,10 @@ export default function postInitialize(engine: PhotonEngine) {
     const defaultFlags: IFlags = {
         firstRun: true,
         noIntro : false,
-        os      : OperatingSystem.ANY,
-        platform: Platform.BROWSER,
-        store   : Storefront.NONE,
-        mode    : BuildMode.PRODUCTION,
+        os      : OperatingSystem.Any,
+        platform: Platform.Browser,
+        store   : Storefront.None,
+        mode    : BuildMode.Production,
         features: {},
     };
 

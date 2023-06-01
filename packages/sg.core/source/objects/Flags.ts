@@ -1,4 +1,5 @@
-import { BuildMode, OperatingSystem, Platform, Storefront } from '@photon-rush/automation.core/source/constants';
+import { BuildMode } from '@photon-rush/automation.environment/lib/createContext';
+import { OperatingSystem, Platform, Storefront } from '@photon-rush/general/lib/platform';
 import { IPhotonObject, ISimplePhotonObject } from '@photon-rush/sg.core/source/photon/IPhotonObject';
 
 export interface IFlags {
@@ -36,10 +37,10 @@ export default class Flags implements IPhotonObject<IFlags>, IFlags {
         } else {
             this.#firstRun = true;
             this.#noIntro  = false;
-            this.#os       = OperatingSystem.ANY;
-            this.#platform = Platform.BROWSER;
-            this.#store    = Storefront.NONE;
-            this.#mode     = BuildMode.PRODUCTION;
+            this.#os       = OperatingSystem.Any;
+            this.#platform = Platform.Browser;
+            this.#store    = Storefront.None;
+            this.#mode     = BuildMode.Production;
             this.#features = {};
         }
 

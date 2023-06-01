@@ -3,7 +3,6 @@ import ElementInstance, { Elements } from '@photon-rush/not-another-markdown/sou
 import DocumentElement from '@photon-rush/not-another-markdown/source/core/parse/elements/DocumentElement';
 import HeadingElement from '@photon-rush/not-another-markdown/source/core/parse/elements/HeadingElement';
 import TextElement from '@photon-rush/not-another-markdown/source/core/parse/elements/TextElement';
-import Result from '@photon-rush/results/source/Result';
 
 import React from 'react';
 
@@ -24,7 +23,7 @@ export default class FormattedText extends React.Component<IFormattedText> {
         const content     = this.props.notMarkdownText;
         const parseResult = fromString(content);
 
-        if (parseResult.value) {
+        if (parseResult) {
             // console.log((parseResult.value[0] as DocumentElement).content);
         } else {
             // console.log(parseResult.pretty());
@@ -33,24 +32,20 @@ export default class FormattedText extends React.Component<IFormattedText> {
         // console.log(this);
 
         return h('div', null, [
-            this.prepare(parseResult),
+            this.prepare(parseResult.elements[0]),
             h('pre', { key: 'blarg' }, content),
         ]);
     }
 
-    prepare(parseResult: Result<Array<ElementInstance>>) {
-        if (parseResult.ok) {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            const parent = parseResult.value![0];
+    prepare(parseResult: ElementInstance) {
+        const parent = parseResult;
 
-            if (parent instanceof DocumentElement) {
-                return this.translate(parent.content.children);
-            } else {
-                return this.translate(parent.children);
-            }
+        if (parent instanceof DocumentElement) {
+            return this.translate(parent.content.children);
         } else {
-            return h('pre', null, parseResult.pretty());
+            return this.translate(parent.children);
         }
+
     }
 
     translate(elements: ReadonlyArray<ElementInstance>) {

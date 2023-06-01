@@ -1,4 +1,4 @@
-# Photon-Rush Interactive
+![Photon-Rush Interactive Logo](packages/web.resources/content/logo.svg)
 
 This repository is the single repository for all Photon-Rush interactive JavaScript / TypeScript projects.
 

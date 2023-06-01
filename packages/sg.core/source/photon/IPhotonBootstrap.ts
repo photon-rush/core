@@ -1,28 +1,24 @@
-import { OperatingSystem, Platform, Storefront } from '@photon-rush/automation.core/source/constants';
-import { PackageTag } from '@photon-rush/automation.core/source/environment/PackageInformation';
+import { ITag } from '@photon-rush/automation.environment/lib/packages/createTag';
+import { OperatingSystem, Platform, Storefront } from '@photon-rush/general/lib/platform';
 
 export interface IPhotonBootstrap {
     platform  : Platform,
     os        : OperatingSystem,
     storefront: Storefront,
     banner    : string,
-    tag       : PackageTag,
+    tag       : ITag,
     frequency : number,
 }
 
 
-export function createDefault(tag: Readonly<PackageTag>, bootstrap?: Partial<IPhotonBootstrap> | null): Readonly<IPhotonBootstrap> {
-
-
+export function createDefault(tag: Readonly<ITag>, bootstrap?: Partial<IPhotonBootstrap> | null): Readonly<IPhotonBootstrap> {
     return Object.freeze({
-        platform  : Platform.BROWSER,
-        os        : OperatingSystem.ANY,
-        storefront: Storefront.NONE,
+        platform  : Platform.Browser,
+        os        : OperatingSystem.Any,
+        storefront: Storefront.None,
         banner    : '',
         frequency : 1000,
         tag,
         ...(bootstrap || {}),
     });
-
-
 }

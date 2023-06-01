@@ -28,3 +28,17 @@ declare module 'string.prototype.towellformed' {
 
     export default toWellFormed;
 }
+
+declare module '@photon-rush/tag' {
+    export interface Tag {
+        name  : string,
+        hash  : string,
+        branch: string,
+        date  : string,
+        mode  : string,
+    }
+
+    const value: Tag;
+
+    export default value;
+}

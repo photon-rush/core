@@ -136,13 +136,7 @@ export default class Typer extends React.Component<ITyperProps> {
 
         const parseResult = fromString(this.props.content, ParseMode.INLINE);
 
-        if (!parseResult.value) {
-            const errorResult     = document.createElement('pre');
-            errorResult.innerText = parseResult.pretty();
-            return;
-        }
-
-        const parsedContent = parseResult.value;
+        const parsedContent = parseResult.elements;
         let speed           = CHAR_TIMER;
 
         if (typeof this.props.speed !== 'undefined') speed = this.props.speed;
