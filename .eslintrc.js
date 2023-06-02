@@ -2,7 +2,7 @@
 module.exports = {
     extends       : ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
     ignorePatterns: [
-        '**/-out',
+        '**/-output',
         '**/-staging',
         '**/-logs',
         'packages/web.resources/fa',

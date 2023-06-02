@@ -15,7 +15,7 @@ export default function rewrite(original: string, environment: IEnvironment): st
     const packageName = components[2];
     const resource    = components.slice(3).join('/');
 
-    const candidate1 = ['packages', packageName, '-out', resource].join('/');
+    const candidate1 = ['packages', packageName, '-output', resource].join('/');
     const candidate2 = ['packages', packageName, resource].join('/');
 
     if (exists(candidate1, environment)) return candidate1;

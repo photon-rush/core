@@ -1,7 +1,7 @@
 import sa from '@photon-rush/general/lib/node/sa';
 import { app, BrowserWindow } from 'electron';
 
-const gameLocation    = sa('@photon-rush/sg.game/-out/index.html');
+const gameLocation    = sa('@photon-rush/sg.game/-output/index.html');
 const preloadLocation = sa('@photon-rush/sg.host/source/preload.js');
 console.log(gameLocation);
 

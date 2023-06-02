@@ -38,7 +38,7 @@ All files are imported with absolute paths that start like this: `@photon-rush/$
 | tests         | Directory | Y | N | Source code for unit and integration tests.
 | documentation | Directory | Y | N | The package's documentation
 | notes         | Directory | Y | N | Loose notes and todo lists etc. about the package
-| -out          | Directory | N | N | output directory for build process.
+| -output       | Directory | N | N | output directory for build process.
 | -logs         | Directory | N | N | output directory for application logs.
 | -npm-logs     | Directory | N | N | output directory for node/npm logs.
 | -temp         | Directory | N | N | output directory for temporary files
