@@ -18,11 +18,7 @@ export default async function buildPackage(status: BuildResult, environment: IEn
     console.log('-'.repeat(80));
     console.log();
 
-    console.log(status);
-
     const configuration = configureWebpack(status.package, environment);
-
-    console.log(configuration);
 
     return await webpackCompile(configuration, status);
 }
@@ -80,6 +76,7 @@ function compilerOutput(stats: webpack.Stats, status: BuildResult) {
         status.failed  = true;
     } else if (warnings > 0) {
         status.message = `Compiled with warnings. ${message}`;
+        status.warning = true;
     } else {
         status.message = 'Compiled successfully.';
     }

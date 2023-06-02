@@ -32,5 +32,7 @@ export default async function main(environment: IEnvironment) {
 
     for (let j = 0; j < toBuild.length; j++) {
         toBuild[j] = await buildPackage(toBuild[j], environment);
+
+        environment.status.add(toBuild[j].toStatus());
     }
 }

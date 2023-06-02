@@ -1,5 +1,5 @@
 import { Configuration } from 'webpack';
-import { resolve } from 'path';
+import { resolve, basename } from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
@@ -10,12 +10,14 @@ export default function configureWeb(packageInformation: IPackage): Configuratio
 
     const htmlPlugins: Array<HtmlWebpackPlugin> = packageInformation.meta.config.templates
         .map(filename => (new HtmlWebpackPlugin({
-            filename,
-            template  : resolve(packageInformation.location, filename),
+            filename  : basename(filename),
+            template  : filename,
             publicPath: packageInformation.meta.name,
             base      : '/',
         })))
         ;
+
+    console.log(htmlPlugins);
 
     return {
         module: {
