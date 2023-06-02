@@ -69,9 +69,9 @@ export function normalizeTerminators(value: string) {
 
 
 export function isWellFormed(content: string): boolean {
-    return isWellFormed(content);
+    return (content as unknown as any).isWellFormed(); // TODO: Remove typescript nonsense once it get smarter
 }
 
 export function toWellFormed(content: string): string {
-    return toWellFormed(content);
+    return (content as unknown as any).toWellFormed(); // TODO: Remove typescript nonsense once it get smarter
 }
