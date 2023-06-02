@@ -1,4 +1,4 @@
-import { ITag } from '@photon-rush/automation.environment/lib/packages/createTag';
+import { ITag } from '@photon-rush/globalTypes';
 import { OperatingSystem, Platform, Storefront } from '@photon-rush/general/lib/platform';
 
 export interface IPhotonBootstrap {

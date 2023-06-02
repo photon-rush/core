@@ -1,5 +1,3 @@
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Types for importing via Webpack
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -14,31 +12,22 @@ declare module '*.svg' {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// Polyfills
+// Globals
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-declare module 'string.prototype.iswellformed' {
-    function isWellFormed(value: string): boolean;
-
-    export default isWellFormed;
-}
-
-declare module 'string.prototype.towellformed' {
-    function toWellFormed(value: string): string;
-
-    export default toWellFormed;
-}
-
-declare module '@photon-rush/tag' {
-    export interface Tag {
+declare module '@photon-rush/globalTypes' {
+    export interface ITag {
         name  : string,
         hash  : string,
         branch: string,
         date  : string,
         mode  : string,
     }
+}
 
-    const value: Tag;
+declare module '@photon-rush/tag' {
+    import { ITag } from '@photon-rush/globalTypes';
+
+    const value: ITag;
 
     export default value;
 }

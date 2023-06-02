@@ -7,7 +7,7 @@ export interface IPackageConfiguration {
     web      : boolean,
     node     : boolean,
     templates: Array<string>,
-    entries  : Array<string>,
+    entries  : Record<string, string>,
 }
 
 export interface IPackageMeta {
@@ -65,18 +65,18 @@ export default async function createPackageMeta(fileLocation: string, status: St
         directory: '',
     };
 
-    const config = raw.config ? {
+    const config: IPackageConfiguration = raw.config ? {
         skip     : coerceBoolean(raw.config.skip),
         web      : coerceBoolean(raw.config.web),
         node     : coerceBoolean(raw.config.node),
         templates: coerceArray(raw.config.template),
-        entries  : coerceArray(raw.config.entries),
+        entries  : coerceRecord(raw.config.entries),
     } : {
         skip     : false,
         web      : false,
         node     : false,
         templates: [],
-        entries  : [],
+        entries  : {},
     };
 
     return {
@@ -109,6 +109,22 @@ function coerceArray(value: any): Array<string> {
         if (coerceString(value[j])) {
             result.push(value[j]);
         }
+    }
+
+    return result;
+}
+
+function coerceRecord(value: any): Record<string, string> {
+    if (!value ) return {};
+    if (typeof value !== 'object') return {};
+    if (Array.isArray(value)) return {};
+
+    const keys = Object.getOwnPropertyNames(value);
+
+    const result: Record<string, string> = {};
+
+    for (let j = 0; j < 0; j++) {
+        result[keys[j]] = coerceString(value[keys[j]]);
     }
 
     return result;

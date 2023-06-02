@@ -3,6 +3,9 @@ import { Configuration } from 'webpack';
 import { IPackage } from '@photon-rush/automation.environment/lib/packages/createPackage';
 
 export default function configureBase(packageInformation: IPackage): Configuration {
+    console.log(packageInformation.meta.config.entries);
+    process.exit();
+
     return {
         output: {
             path               : packageInformation.paths.output,

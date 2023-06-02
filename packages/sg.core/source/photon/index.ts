@@ -3,7 +3,7 @@ import postInitialize from '@photon-rush/sg.core/source/photon/postInitialize';
 import { createDefault, IPhotonBootstrap } from '@photon-rush/sg.core/source/photon/IPhotonBootstrap';
 import ObjectManager from '@photon-rush/sg.core/source/photon/ObjectManager';
 import IPhotonError from '@photon-rush/sg.core/source/photon/IPhotonError';
-import { ITag } from '@photon-rush/automation.environment/lib/packages/createTag';
+import { ITag } from '@photon-rush/globalTypes';
 
 export enum EngineState {
     ERROR       = 'error',

@@ -4,7 +4,7 @@ import { IRepository } from '@photon-rush/automation.environment/lib/repository/
 
 import { IContext } from '@photon-rush/automation.environment/lib/createContext';
 import createPackage, { IPackage } from '@photon-rush/automation.environment/lib/packages/createPackage';
-import { resolvePaths } from '@photon-rush/automation.environment/lib/resolvePaths';
+import { resolvePathArray } from '@photon-rush/automation.environment/lib/resolvePaths';
 import StatusCollection from '@photon-rush/general/lib/StatusCollection';
 
 export interface IPackages {
@@ -21,7 +21,7 @@ export default async function createPackages(repository: IRepository, context: I
         status,
     };
 
-    const packages = resolvePaths(repository.paths.packages, await readdir(repository.paths.packages));
+    const packages = resolvePathArray(repository.paths.packages, await readdir(repository.paths.packages));
 
     const result: IPackages = {
         list      : [],

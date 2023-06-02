@@ -1,5 +1,4 @@
 import { existsSync } from 'fs-extra';
-
 import { IPackage } from '@photon-rush/automation.environment/lib/packages/createPackage';
 import StatusCollection from '@photon-rush/general/lib/StatusCollection';
 import Status from '@photon-rush/general/lib/Status';
@@ -30,9 +29,10 @@ export default async function validatePackage(packageInformation: IPackage, stat
     if (!packageInformation.meta.name.startsWith('@photon-rush/')) addError(messageScope(packageInformation.meta.name));
     if (!packageInformation.meta.private) addError('Package must be private.');
 
-    for (let j = 0; j < packageInformation.meta.config.entries.length; j++) {
-        if (!existsSync(packageInformation.meta.config.entries[j])) {
-            addError(messageEntry(packageInformation.meta.config.entries[j]));
+    const keys = Object.getOwnPropertyNames(packageInformation.meta.config.entries);
+    for (let j = 0; j < keys.length; j++) {
+        if (!existsSync(packageInformation.meta.config.entries[keys[j]])) {
+            addError(messageEntry(packageInformation.meta.config.entries[keys[j]]));
         }
     }
 

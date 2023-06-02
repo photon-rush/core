@@ -1,7 +1,3 @@
-import _isWellFormed from 'string.prototype.iswellformed';
-import _toWellFormed from 'string.prototype.towellformed';
-
-
 // We support all the spaces JavaScript does - Unicode category Zs plus a few obvious extras
 const _whitespaceCharacters: ReadonlyArray<string> = [
     '\u0009', // CHARACTER TABULATION
@@ -73,9 +69,9 @@ export function normalizeTerminators(value: string) {
 
 
 export function isWellFormed(content: string): boolean {
-    return _isWellFormed(content);
+    return isWellFormed(content);
 }
 
 export function toWellFormed(content: string): string {
-    return _toWellFormed(content);
+    return toWellFormed(content);
 }

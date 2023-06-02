@@ -13,11 +13,12 @@
             "@photon-rush/*": [
                 "./packages/*",
             ],
-        }
+        },
     },
     "ts-node": {
         "compilerOptions": {
             "module": "commonjs",
         },
+        "files": true,
     },
 }
