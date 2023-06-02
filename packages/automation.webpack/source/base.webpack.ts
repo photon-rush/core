@@ -4,7 +4,7 @@ import { IPackage } from '@photon-rush/automation.environment/lib/packages/creat
 
 export default function configureBase(packageInformation: IPackage): Configuration {
     console.log(packageInformation.meta.config.entries);
-    process.exit();
+
 
     return {
         output: {
@@ -12,6 +12,7 @@ export default function configureBase(packageInformation: IPackage): Configurati
             filename           : '[name].js',
             assetModuleFilename: 'content/[name][ext]',
         },
+        entry : packageInformation.meta.config.entries,
         module: {
             rules: [
                 {

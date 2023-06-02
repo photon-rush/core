@@ -10,7 +10,11 @@ import Status, { StatusType } from '@photon-rush/general/lib/Status';
     console.log(showBanner(environment));
     console.log();
 
-    await runCommand(environment.context.command, environment);
+    if (environment.status.type === StatusType.Error) {
+        environment.status.add(Status.error('Could not run command, the environment has errors in it. Fix these first.'));
+    } else {
+        await runCommand(environment.context.command, environment);
+    }
 
     console.log();
 

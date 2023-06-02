@@ -8,5 +8,8 @@
         "type": "git",
         "url": "git+https://github.com/photon-rush/core.git",
         "directory": "packages/sg.game"
+    },
+    "config": {
+        "web": true
     }
 }

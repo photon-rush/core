@@ -45,11 +45,14 @@ export default async function createPackage(location: string, state: IState): Pr
     if (meta.missing) {
         valid = false;
     } else {
-        if (meta.config.node && Object.keys(meta.config.entries).length === 0) {
+        const needEntry    = (meta.config.web || meta.config.node) && Object.keys(meta.config.entries).length === 0;
+        const needTemplate = meta.config.web && meta.config.templates.length === 0;
+
+        if (needEntry) {
             meta.config.entries['index'] = './index.ts';
         }
 
-        if (meta.config.web && meta.config.templates.length === 0) {
+        if (needTemplate) {
             meta.config.templates.push('./template.html');
         }
 
