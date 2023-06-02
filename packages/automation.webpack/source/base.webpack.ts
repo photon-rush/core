@@ -1,6 +1,8 @@
-import { Configuration } from 'webpack';
+import { Configuration, DefinePlugin } from 'webpack';
+import VirtualModulesPlugin from 'webpack-virtual-modules';
 
 import { IPackage } from '@photon-rush/automation.environment/lib/packages/createPackage';
+import { ITag } from '@photon-rush/globalTypes';
 
 export default function configureBase(packageInformation: IPackage): Configuration {
     return {
@@ -42,5 +44,24 @@ export default function configureBase(packageInformation: IPackage): Configurati
         performance: {
             hints: false,
         },
+        plugins: [
+            new VirtualModulesPlugin({
+                'node_modules/@photon-rush/tag.js': createTagModule(packageInformation.tag), // Makes the application tag available via `import tag from '@photon-rush/tag'`
+            }),
+            new DefinePlugin({
+                '__REACT_DEVTOOLS_GLOBAL_HOOK__': '({ isDisabled: true })', // silences the react console nonsense.
+            }),
+        ],
     };
+}
+
+function createTagModule(tag: ITag): string {
+    return `
+export default Object.freeze({
+    name: '${tag.name}',
+    hash: '${tag.hash}',
+    branch: '${tag.branch}',
+    date: '${tag.date}',
+    mode: '${tag.mode}',
+});`.trim();
 }
