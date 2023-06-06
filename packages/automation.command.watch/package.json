@@ -1,12 +1,12 @@
 {
-    "name": "@photon-rush/automation.command.build",
+    "name": "@photon-rush/automation.command.watch",
     "version": "1.0.0",
-    "description": "Uses webpack to create bundles of code and content",
+    "description": "Watches files",
     "private": true,
     "license": "GPL-3.0-or-later",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/photon-rush/core.git",
-        "directory": "packages/automation.command.build"
+        "directory": "packages/automation.command.watch"
     }
 }

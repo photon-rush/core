@@ -1,19 +1,19 @@
-
 import { IEnvironment } from '@photon-rush/automation.environment/lib/createEnvironment';
-import BuildResult from '@photon-rush/automation.command.build/lib/BuildResult';
 import { IPackage } from '@photon-rush/automation.environment/lib/packages/createPackage';
-import { shouldSkip } from '@photon-rush/automation.command.build/lib/shouldSkip';
 
-import buildPackage from '@photon-rush/automation.command.build/lib/buildPackage';
 import Status from '@photon-rush/general/lib/Status';
+import BuildResult from '@photon-rush/automation.webpack/lib/BuildResult';
+import buildPackage from '@photon-rush/automation.webpack/lib/buildPackage';
 
 export default async function main(environment: IEnvironment) {
     const toBuild: Array<BuildResult> = [];
 
     const createResult = (packageInformation: IPackage) => {
-        const skip = shouldSkip(packageInformation, environment.context.delta);
+        const result = new BuildResult(packageInformation);
 
-        return new BuildResult(packageInformation, skip.reason, skip.skip);
+        skip(result, environment.context.delta);
+
+        return result;
     };
 
     if (environment.context.global) {
@@ -31,8 +31,18 @@ export default async function main(environment: IEnvironment) {
     }
 
     for (let j = 0; j < toBuild.length; j++) {
-        toBuild[j] = await buildPackage(toBuild[j], environment);
+        await buildPackage(toBuild[j], environment);
 
-        environment.status.add(toBuild[j].toStatus());
+        environment.status.addFrom(toBuild[j].status);
+    }
+}
+
+export function skip(result: BuildResult, delta: boolean) {
+    if (result.package.meta.config.skip) {
+        result.skip('Skipped due to config.skip being true.');
+    } else if (result.package.meta.name.startsWith('@photon-rush/automation.')) {
+        result.skip('Skipped, automation packages are not built.');
+    } else if (!result.package.changed && delta) {
+        result.skip('Skipped, this package was not changed');
     }
 }

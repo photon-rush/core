@@ -16,15 +16,12 @@ export default class StatusCollection {
     }
 
     get type(): StatusType { return this.#type; }
+    get ok() { return this.#type === StatusType.Success || this.#type === StatusType.Warning; }
+
     get length(): number { return this.#statuses.length; }
-
-    countErrors(): number {
-        return this.#statuses.filter(status => status.type === StatusType.Error).length;
-    }
-
-    countWarnings(): number {
-        return this.#statuses.filter(status => status.type === StatusType.Warning).length;
-    }
+    get errors(): number { return this.#statuses.filter(status => status.type === StatusType.Error).length; }
+    get warnings(): number { return this.#statuses.filter(status => status.type === StatusType.Warning).length; }
+    get successes(): number { return this.#statuses.filter(status => status.type === StatusType.Success).length; }
 
     add(status: Status | Partial<IStatus>) {
         const newStatus = new Status(status);
@@ -34,6 +31,14 @@ export default class StatusCollection {
             this.#type = newStatus.type;
         } else if (this.#type === StatusType.Warning && newStatus.type === StatusType.Error) {
             this.#type = StatusType.Error;
+        }
+    }
+
+    addFrom(status: Iterable<Status> | ArrayLike<Status> | Iterable<Partial<IStatus>> | ArrayLike<Partial<IStatus>> | StatusCollection) {
+        if (status instanceof StatusCollection) {
+            status.#statuses.forEach(status => this.add(status));
+        } else {
+            Array.from(status).forEach(status => this.add(status));
         }
     }
 
