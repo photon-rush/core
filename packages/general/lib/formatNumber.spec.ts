@@ -1,7 +1,7 @@
-import { formatNumber } from '@photon-rush/sg.core/source/formatNumber';
+import { formatNumber } from '@photon-rush/general/lib/formatNumber';
 import { equal } from 'assert';
 
-describe('core.formatNumber', () => {
+describe('@photon-rush/general/lib/formatNumber', () => {
     it('should correctly format Infinity', () => equal(formatNumber(Infinity), '+∞∞∞.∞∞∞ '));
     it('should correctly format -Infinity', () => equal(formatNumber(-Infinity), '-∞∞∞.∞∞∞ '));
     it('should correctly format NaN', () => equal(formatNumber(NaN), '   NaN   '));

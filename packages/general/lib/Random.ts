@@ -4,11 +4,21 @@
 // Also SplitMix
 // https://prng.di.unimi.it/splitmix64.c
 
-const uint64Max = 18446744073709551615n;
+import { uint64Max } from '@photon-rush/general/constants';
 
+
+/**
+ * Implements the xoshiro256++ PRNG.
+ * This PRNG supports a user supplied seed (unlike the built-in one) but is not secure.
+ */
 export default class Random {
     #state: BigUint64Array;
 
+    /**
+     * Creates a new Random PRNG. If not seed is supplied, it will create one based on the current time.
+     * The seed must be at least 256bits long and must not be 0. Strings will be converted
+     * @param seed The initial seed for the PRNG
+     */
     constructor(seed?: BigUint64Array | Array<number> | Array<bigint> | string | null) {
         this.#state = new BigUint64Array(4);
 
@@ -32,6 +42,10 @@ export default class Random {
         }
     }
 
+    /**
+     *
+     * @returns A random 64 bit unsigned integer
+     */
     next(): bigint {
         const result = Random.#rotl(this.#state[0] + this.#state[3], 23n) + this.#state[0];
 
@@ -49,19 +63,67 @@ export default class Random {
         return result;
     }
 
-    within(min: bigint | number, max: bigint | number): bigint {
+    /**
+     *
+     * @param min the minimum possible value to return
+     * @param max the maximum possible value to return
+     * @returns A random number between min and max (inclusive)
+     */
+    within(min: bigint | number = 0, max: bigint | number = uint64Max): bigint {
         const minActual = BigInt(min);
         const maxActual = BigInt(max);
+        const range     = maxActual - minActual + 1n;
 
-        const range = maxActual - minActual + 1n;
+        return this.#basicRange(range) + minActual;
+    }
 
-        let value;
+    #basicRange(max: bigint): bigint {
+        const limit = uint64Max - (uint64Max % max);
 
-        do {
-            value = this.next();
-        } while (value >= ((uint64Max / range) * range));
+        let result = this.next();
 
-        return minActual + (value % range);
+        while (result < limit) {
+            result = this.next();
+        }
+
+        return result % max;
+    }
+
+    // https://lemire.me/blog/2019/06/06/nearly-divisionless-random-integer-generation-on-various-systems/
+    // Can't get this to work for some reason.
+    #lemireRange(s: bigint) {
+        let x = this.next();
+        let m = x * s;
+        let l = BigInt.asUintN(64, m);
+
+        let debug: string = '';
+
+        debug += `[s=${s}]`;
+        debug += `[x=${x}]`;
+        debug += `[m=${m}]`;
+        debug += `[l=${l}]`;
+        debug += `[result=${ m >> 64n}]`;
+
+        console.log(debug);
+
+        if (l < s) {
+            const t = -s % s;
+            console.log(`[test=${t}]`);
+
+            while (l < t) {
+                x = this.next();
+                m = x * s;
+                l = BigInt.asUintN(64, m);
+            }
+        }
+
+        const result = m >> 64n; // maybe mod?
+
+        return result;
+    }
+
+    percentage() {
+        return Number(this.within(0, 100)) / 100;
     }
 
     pick<T>(array: Array<T>): T {
@@ -70,7 +132,7 @@ export default class Random {
         return array[index];
     }
 
-    roll(sides: number = 6, count: number = 1): Array<number> {
+    rollMultiple(sides: number = 6, count: number = 1): Array<number> {
         const result: Array<number> = [];
 
         for (let j = 0; j < count; j++) {
@@ -79,6 +141,21 @@ export default class Random {
 
         return result;
     }
+
+    roll(sides: number): number {
+        return Number(this.within(1, sides));
+    }
+
+    fill(count: number): Array<bigint> {
+        const result: Array<bigint> = [];
+
+        for (let j = 0; j < count; j++) {
+            result.push(this.next());
+        }
+
+        return result;
+    }
+
 
     static createSeedString(seed: string): BigUint64Array {
         const encoder = new TextEncoder();

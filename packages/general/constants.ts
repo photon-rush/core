@@ -1,0 +1,1 @@
+export const uint64Max = 18446744073709551615n;

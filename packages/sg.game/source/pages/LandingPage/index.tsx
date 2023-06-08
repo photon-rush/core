@@ -2,7 +2,7 @@ import '@photon-rush/sg.game/source/pages/LandingPage/index.scss';
 
 import Counter from '@photon-rush/sg.core/source/objects/Counter';
 import { useEngine } from '@photon-rush/sg.core/source/photon';
-import { formatNumber } from '@photon-rush/sg.core/source/formatNumber';
+import { formatNumber } from '@photon-rush/general/lib/formatNumber';
 import React, { useState } from 'react';
 
 export const LandingPage = () => {
