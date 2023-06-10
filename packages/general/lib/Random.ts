@@ -63,6 +63,10 @@ export default class Random {
         return result;
     }
 
+    nextNumber(): number {
+        return Number(this.within(0, Number.MAX_SAFE_INTEGER));
+    }
+
     /**
      *
      * @param min the minimum possible value to return
@@ -77,6 +81,20 @@ export default class Random {
         return this.#basicRange(range) + minActual;
     }
 
+    withinNumber(min: number, max: number): number {
+        const minActual = BigInt(min);
+        const maxActual = BigInt(max);
+        const range     = maxActual - minActual + 1n;
+
+        const value = this.#basicRange(range) + minActual;
+
+        if (value > Number.MAX_SAFE_INTEGER) {
+            return Number.MAX_SAFE_INTEGER;
+        } else {
+            return Number(value);
+        }
+    }
+
     #basicRange(max: bigint): bigint {
         const limit = uint64Max - (uint64Max % max);
 
@@ -89,44 +107,14 @@ export default class Random {
         return result % max;
     }
 
-    // https://lemire.me/blog/2019/06/06/nearly-divisionless-random-integer-generation-on-various-systems/
-    // Can't get this to work for some reason.
-    #lemireRange(s: bigint) {
-        let x = this.next();
-        let m = x * s;
-        let l = BigInt.asUintN(64, m);
-
-        let debug: string = '';
-
-        debug += `[s=${s}]`;
-        debug += `[x=${x}]`;
-        debug += `[m=${m}]`;
-        debug += `[l=${l}]`;
-        debug += `[result=${ m >> 64n}]`;
-
-        console.log(debug);
-
-        if (l < s) {
-            const t = -s % s;
-            console.log(`[test=${t}]`);
-
-            while (l < t) {
-                x = this.next();
-                m = x * s;
-                l = BigInt.asUintN(64, m);
-            }
-        }
-
-        const result = m >> 64n; // maybe mod?
-
-        return result;
-    }
-
     percentage() {
         return Number(this.within(0, 100)) / 100;
     }
 
     pick<T>(array: Array<T>): T {
+        if (array.length === 0) throw new Error('Cannot pick from empty array.');
+        if (array.length === 1) return array[0];
+
         const index = Number(this.within(0, array.length));
 
         return array[index];
@@ -155,7 +143,6 @@ export default class Random {
 
         return result;
     }
-
 
     static createSeedString(seed: string): BigUint64Array {
         const encoder = new TextEncoder();
