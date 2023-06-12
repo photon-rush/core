@@ -1,3 +1,6 @@
+import aldousBroder from '@photon-rush/sg.core/source/maze/aldousBroder';
+import { Maze } from '@photon-rush/sg.core/source/maze/Maze';
+import recursiveBacktracker from '@photon-rush/sg.core/source/maze/recursiveBacktracker';
 import { ICounter } from '@photon-rush/sg.core/source/objects/Counter';
 import { initializeEngine, useEngine } from '@photon-rush/sg.core/source/photon';
 import { Application } from '@photon-rush/sg.game/source/Application';
@@ -63,10 +66,22 @@ export default async function bootstrap(document: Document) {
 
     await engine.start();
 
+    testMaze();
+
     const host = document.createElement('div');
     host.id    = 'main';
     document.body.append(host);
 
     const root = createRoot(host);
     root.render(<Application/>);
+}
+
+function testMaze() {
+    const engine = useEngine();
+
+    const maze = new Maze(32, 32);
+    // aldousBroder(maze, engine.random);
+    recursiveBacktracker(maze, engine.random);
+
+    console.log(maze.toString());
 }

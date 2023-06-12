@@ -115,7 +115,7 @@ export default class Random {
         if (array.length === 0) throw new Error('Cannot pick from empty array.');
         if (array.length === 1) return array[0];
 
-        const index = Number(this.within(0, array.length));
+        const index = Number(this.within(0, array.length - 1));
 
         return array[index];
     }

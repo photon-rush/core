@@ -65,14 +65,6 @@ export function isCardinal(value?: string | null): boolean {
     return false;
 }
 
-// export const reversedCardinalDirection = Object.freeze({
-//     [CardinalDirection.North]: CardinalDirection.South,
-//     [CardinalDirection.East] : CardinalDirection.West,
-//     [CardinalDirection.South]: CardinalDirection.North,
-//     [CardinalDirection.West] : CardinalDirection.East,
-// });
-
-
 export default class Point implements IPhotonObject<IPoint>, IPoint {
     static readonly #_zero: Point = new Point();
 
@@ -130,7 +122,7 @@ export default class Point implements IPhotonObject<IPoint>, IPoint {
         ];
     }
 
-    getNeighbor(direction: Direction) {
+    getNeighbor(direction: Direction | CardinalDirection) {
         return this.add(Point.#_neighbors[direction]);
     }
 
@@ -179,7 +171,6 @@ export default class Point implements IPhotonObject<IPoint>, IPoint {
             throw new Error('Invalid direction');
         }
     }
-
 
     add(point: Point) {
         return new Point(this.x + point.x, this.y + point.y);

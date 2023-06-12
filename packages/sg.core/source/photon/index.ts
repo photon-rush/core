@@ -4,6 +4,7 @@ import { createDefault, IPhotonBootstrap } from '@photon-rush/sg.core/source/pho
 import ObjectManager from '@photon-rush/sg.core/source/photon/ObjectManager';
 import IPhotonError from '@photon-rush/sg.core/source/photon/IPhotonError';
 import { ITag } from '@photon-rush/globalTypes';
+import Random from '@photon-rush/general/lib/Random';
 
 export enum EngineState {
     ERROR       = 'error',
@@ -24,6 +25,7 @@ export class PhotonEngine {
     readonly #assetManager : AssetManager;
     readonly #objectManager: ObjectManager;
     readonly #configuration: Readonly<IPhotonBootstrap>;
+    readonly #random       : Random;
 
     #state     : EngineState;
     #loopHandle: number | null;
@@ -38,6 +40,7 @@ export class PhotonEngine {
         this.#errors     = [];
         this.#fatalError = false;
 
+        this.#random        = new Random(bootstrap.seed);
         this.#assetManager  = new AssetManager();
         this.#objectManager = new ObjectManager();
 
@@ -54,7 +57,7 @@ export class PhotonEngine {
         }
     }
 
-    get configuration() {return this.#configuration;}
+    get configuration() { return this.#configuration; }
 
     get frequency() { return this.#frequency; }
 
@@ -64,9 +67,11 @@ export class PhotonEngine {
 
     get hasFatalErrors() { return this.#fatalError; }
 
-    get asset() {return this.#assetManager;}
+    get asset() { return this.#assetManager; }
 
-    get objects() {return this.#objectManager;}
+    get objects() { return this.#objectManager; }
+
+    get random() { return this.#random; }
 
     async start() {
         if (this.state === EngineState.ERROR || this.state === EngineState.STARTED) return;

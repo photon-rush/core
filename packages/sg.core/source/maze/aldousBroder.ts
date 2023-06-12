@@ -1,8 +1,6 @@
 import Random from '@photon-rush/general/lib/Random';
-import BuilderMazeCell from '@photon-rush/sg.core/source/maze/BuilderMazeCell';
+import { Maze } from '@photon-rush/sg.core/source/maze/Maze';
 
-import Point from '@photon-rush/sg.core/source/objects/Point';
-import SquareGrid from '@photon-rush/sg.core/source/objects/SquareGrid';
 
 /**
  * Creates an unbiased square maze.
@@ -10,27 +8,22 @@ import SquareGrid from '@photon-rush/sg.core/source/objects/SquareGrid';
  * @param size The height and width of the maze.
  * @param random The PRNG to use when generating the maze
  */
-export default function aldousBroder(size: number, random: Random): SquareGrid<BuilderMazeCell> {
-    const grid  = new SquareGrid(size, new BuilderMazeCell());
-    const start = new Point(random.withinNumber(0, size - 1), random.withinNumber(0, size - 1));
-    const total = size * size;
-
+export default function aldousBroder(maze: Maze, random: Random) {
+    const total   = maze.rows * maze.columns;
     const visited = new Set<string>();
-    let current   = grid.get(start);
 
-    current.value.visited = true;
-    visited.add(current.location.id);
+    let current     = maze.at(random.withinNumber(0, maze.rows - 1), random.withinNumber(0, maze.columns - 1))!;
+    current.visited = true;
+    visited.add(current.key);
 
     while (visited.size < total) {
-        const next          = random.pick(grid.getValidCardinalNeighbors(current.location));
-        const nextDirection = current.location.getCardinalDirection(next.location);
+        const direction = random.pick(maze.getNeighbors(current.row, current.column));
+        const next      = maze.getNeighbor(current.row, current.column, direction)!;
 
-        if (next.value.visited) current.value.link(nextDirection, next.value);
+        if (!next.visited) maze.link(current.row, current.column, direction);
 
-        current               = next;
-        current.value.visited = true;
-        visited.add(current.location.id);
+        current         = next;
+        current.visited = true;
+        visited.add(current.key);
     }
-
-    return grid;
 }

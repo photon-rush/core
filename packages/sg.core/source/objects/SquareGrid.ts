@@ -81,4 +81,8 @@ export default class SquareGrid<T> {
             });
     }
 
+    [Symbol.iterator]() {
+        return this.#_cells.values();
+    }
+
 }

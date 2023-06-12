@@ -1,37 +1,32 @@
 import Random from '@photon-rush/general/lib/Random';
-import BuilderMazeCell from '@photon-rush/sg.core/source/maze/BuilderMazeCell';
-import Point from '@photon-rush/sg.core/source/objects/Point';
-import SquareGrid from '@photon-rush/sg.core/source/objects/SquareGrid';
+import { MazeCell, Maze } from '@photon-rush/sg.core/source/maze/Maze';
 
 /**
  * Creates an square maze biased toward long passages.
  * @param size The height and width of the maze.
  * @param random The PRNG to use when generating the maze
  */
-export default function recursiveBacktracker(size: number, random: Random): SquareGrid<BuilderMazeCell> {
-    const grid  = new SquareGrid(size, new BuilderMazeCell());
-    const start = new Point(random.withinNumber(0, size - 1), random.withinNumber(0, size - 1));
+export default function recursiveBacktracker(maze: Maze, random: Random) {
+    const start = maze.at(random.withinNumber(0, maze.rows - 1), random.withinNumber(0, maze.columns - 1))!;
 
-    const stack: Array<{
-        location: Point,
-        value   : BuilderMazeCell,
-    }> = [grid.get(start)];
+    const stack: Array<MazeCell> = [start];
 
     while (stack.length > 0) {
-        const neighbors = grid
-            .getValidCardinalNeighbors(stack[stack.length - 1].location)
-            .filter(n => !n.value.visited)
+        const current = stack[stack.length - 1];
+
+        const neighbors = maze.getNeighbors(current.row, current.column)
+            .map(direction => ({ direction, cell: maze.getNeighbor(current.row, current.column, direction)! }))
+            .filter(c => !c.cell.visited)
             ;
 
         if (neighbors.length === 0) {
             stack.pop();
         } else {
-            const next = random.pick(neighbors);
+            const { direction, cell } = random.pick(neighbors);
 
-            stack[stack.length - 1].value.link(stack[stack.length - 1].location.getCardinalDirection(next.location), next.value);
-            stack.push(stack[stack.length - 1]);
+            maze.link(current.row, current.column, direction);
+            cell.visited = true;
+            stack.push(cell);
         }
     }
-
-    return grid;
 }
