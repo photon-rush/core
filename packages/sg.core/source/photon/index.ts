@@ -20,12 +20,13 @@ export interface EngineUpdateEvent {
 }
 
 export class PhotonEngine {
-    readonly #frequency    : number;
-    readonly #errors       : Array<IPhotonError>;
-    readonly #assetManager : AssetManager;
-    readonly #objectManager: ObjectManager;
-    readonly #configuration: Readonly<IPhotonBootstrap>;
-    readonly #random       : Random;
+    readonly #frequency     : number;
+    readonly #errors        : Array<IPhotonError>;
+    readonly #assetManager  : AssetManager;
+    readonly #objectManager : ObjectManager;
+    readonly #configuration : Readonly<IPhotonBootstrap>;
+    readonly #random        : Random;
+    readonly #unseededRandom: Random;
 
     #state     : EngineState;
     #loopHandle: number | null;
@@ -40,7 +41,9 @@ export class PhotonEngine {
         this.#errors     = [];
         this.#fatalError = false;
 
-        this.#random        = new Random(bootstrap.seed);
+        this.#random         = new Random(bootstrap.seed);
+        this.#unseededRandom = new Random();
+
         this.#assetManager  = new AssetManager();
         this.#objectManager = new ObjectManager();
 
@@ -72,6 +75,7 @@ export class PhotonEngine {
     get objects() { return this.#objectManager; }
 
     get random() { return this.#random; }
+    get unseededRandom() { return this.#unseededRandom; }
 
     async start() {
         if (this.state === EngineState.ERROR || this.state === EngineState.STARTED) return;

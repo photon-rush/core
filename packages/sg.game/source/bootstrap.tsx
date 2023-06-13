@@ -80,8 +80,10 @@ function testMaze() {
     const engine = useEngine();
 
     const maze = new Maze(32, 32);
-    // aldousBroder(maze, engine.random);
-    recursiveBacktracker(maze, engine.random);
+    maze.createRoom(4, 4, 5, 5);
+    aldousBroder(maze, engine.unseededRandom);
+    // recursiveBacktracker(maze, engine.random);
+
 
     console.log(maze.toString());
 }

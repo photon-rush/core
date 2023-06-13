@@ -1,92 +1,16 @@
-export enum WallDirection {
-    North = 'n',
-    South = 's',
-    East  = 'e',
-    West  = 'w',
-}
-
-export class MazeCell {
-    #row   : number;
-    #column: number;
-    #key   : string;
-
-    [WallDirection.North]: boolean;
-    [WallDirection.South]: boolean;
-    [WallDirection.East] : boolean;
-    [WallDirection.West] : boolean;
-
-    visited: boolean;
-
-    constructor(row: number, column: number) {
-        this[WallDirection.North] = true;
-        this[WallDirection.South] = true;
-        this[WallDirection.East]  = true;
-        this[WallDirection.West]  = true;
-
-        this.#row    = row;
-        this.#column = column;
-        this.#key    = `r${row}c${column}`;
-
-        this.visited = false;
-    }
-
-    get key() { return this.#key; }
-    get row() { return this.#row; }
-    get column() { return this.#column; }
-    get walls(): string {
-        let result = '';
-
-        result += this[WallDirection.North] ? 'n' : '-';
-        result += this[WallDirection.South] ? 's' : '-';
-        result += this[WallDirection.East] ? 'e' : '-';
-        result += this[WallDirection.West]  ? 'w' : '-';
-
-        return result;
-    }
-    get deadEnd() {
-        let counter = 0;
-
-        if (this[WallDirection.North]) counter++;
-        if (this[WallDirection.South]) counter++;
-        if (this[WallDirection.East]) counter++;
-        if (this[WallDirection.West]) counter++;
-
-        return counter <= 1;
-    }
-}
-
-const reverse = {
-    [WallDirection.North]: WallDirection.South,
-    [WallDirection.South]: WallDirection.North,
-    [WallDirection.East] : WallDirection.West,
-    [WallDirection.West] : WallDirection.East,
-};
-
-const invertedWallCharacters: Record<string, string> = {
-    ['nsew']: ' ',
-    ['nse-']: '╴',
-    ['ns-w']: '╶',
-    ['ns--']: '─',
-    ['n-ew']: ' ',
-    ['n-e-']: '┐',
-    ['n--w']: '┌',
-    ['n---']: '┬',
-    ['-sew']: '╵',
-    ['-se-']: '┘',
-    ['-s-w']: '└',
-    ['-s--']: '┴',
-    ['--ew']: '│',
-    ['--e-']: '┤',
-    ['---w']: '├',
-    ['----']: '┼',
-};
+import {
+    MazeCell,
+    WallDirection,
+    invertedWallCharacters,
+    reverse,
+} from '@photon-rush/sg.core/source/maze/MazeCell';
 
 export class Maze {
     #grid   : Array<Array<MazeCell>>;
     #rows   : number;
     #columns: number;
 
-    constructor(rows: number, columns: number) {
+    constructor(rows: number, columns: number, wallDefault: boolean = true ) {
         this.#grid    = [];
         this.#rows    = rows;
         this.#columns = columns;
@@ -95,7 +19,7 @@ export class Maze {
             this.#grid.push([]);
 
             for (let column = 0; column < columns; column++) {
-                this.#grid[row].push(new MazeCell(row, column));
+                this.#grid[row].push(new MazeCell(row, column, wallDefault));
             }
         }
     }
@@ -130,6 +54,21 @@ export class Maze {
 
         center[direction]            = false;
         neighbor[reverse[direction]] = false;
+    }
+
+    createRoom(row: number, column: number, width: number, height: number) {
+        for (let rowOffset = 0; rowOffset < height; rowOffset++) {
+            for (let columnOffset = 0; columnOffset < width; columnOffset++) {
+                const current = this.at(row + rowOffset, column + columnOffset);
+                if (!current) continue;
+
+                const east  = this.getNeighbor(row + rowOffset, column + columnOffset, WallDirection.East);
+                const south = this.getNeighbor(row + rowOffset, column + columnOffset, WallDirection.South);
+
+                if (east && !(columnOffset === height - 1)) this.link(current.row, current.column, WallDirection.East);
+                if (south && !(rowOffset === height - 1)) this.link(current.row, current.column, WallDirection.South);
+            }
+        }
     }
 
     getNeighbor(row: number, column: number, direction: WallDirection): MazeCell | null {
@@ -174,4 +113,6 @@ export class Maze {
 
         return result.join('\n');
     }
+
+
 }
